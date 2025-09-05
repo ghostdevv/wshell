@@ -1,0 +1,23 @@
+@use '../_theme.scss';
+
+window.Bar {
+	background: transparent;
+	font-weight: 400;
+	font-size: 14px;
+	color: theme.$text;
+
+	> centerbox {
+		border-radius: 10px;
+		margin: 0px 8px;
+	}
+
+	button {
+		border-radius: 16px;
+		padding: 6px 12px;
+		background-color: theme.$background-secondary;
+
+		&:hover {
+			background-color: theme.$primary;
+		}
+	}
+}
