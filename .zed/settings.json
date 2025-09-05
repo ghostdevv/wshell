@@ -1,0 +1,13 @@
+{
+	"lsp": {
+		"deno": {
+			"settings": {
+				"deno": {
+					// deno keeps popping up with an error for some reason
+					// so explicitly disable it
+					"enable": false
+				}
+			}
+		}
+	}
+}
