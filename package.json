@@ -4,15 +4,14 @@
 	"scripts": {
 		"format": "prettier --write .",
 		"start": "ags run src/wshell.ts --gtk 4",
-		"dev": "nodemon --exec \"pnpm run start\" --watch src/**/* -e ts,tsx,scss"
+		"dev": "onchange --initial --kill 'src/**/*.*' -- pnpm start"
 	},
 	"dependencies": {
 		"ags": "/usr/share/ags/js",
 		"gnim": "^1.6.5"
 	},
 	"devDependencies": {
-		"chokidar-cli": "^3.0.0",
-		"nodemon": "^3.1.10",
+		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
 		"sass": "^1.92.0"
 	},
