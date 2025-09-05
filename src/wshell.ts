@@ -4,6 +4,7 @@ import Bar from './bar/Bar';
 
 app.start({
 	css: style,
+	instanceName: 'wshell',
 	main() {
 		app.get_monitors().map(Bar);
 	},
