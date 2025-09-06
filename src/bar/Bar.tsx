@@ -1,3 +1,4 @@
+import { WorkspaceIndicator } from './WorkspaceIndicator';
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import app from 'ags/gtk4/app';
@@ -26,7 +27,11 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 			application={app}
 		>
 			<centerbox cssName="centerbox">
-				<box $type="center">
+				<box $type="start" halign={Gtk.Align.END}>
+					<WorkspaceIndicator monitor={gdkmonitor.connector} />
+				</box>
+
+				<box $type="center" halign={Gtk.Align.END}>
 					<Clock />
 				</box>
 			</centerbox>

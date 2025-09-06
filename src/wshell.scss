@@ -1,1 +1,10 @@
 @use './bar/_bar.scss' as *;
+
+.icon {
+	font-family: 'Font Awesome 7 Free';
+	font-weight: 400;
+
+	&.fas {
+		font-weight: 900;
+	}
+}
