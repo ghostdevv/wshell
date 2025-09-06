@@ -19,8 +19,15 @@ window.Bar {
 	}
 
 	button {
-		&:hover {
-			background-color: theme.$primary;
+		&.icon {
+			background: none;
+			padding: 0px;
+		}
+
+		&:not(.icon) {
+			&:hover {
+				background-color: theme.$primary;
+			}
 		}
 	}
 }

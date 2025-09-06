@@ -2,6 +2,7 @@ import { WorkspaceIndicator } from './WorkspaceIndicator';
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
 import { Clock } from './Clock';
 import app from 'ags/gtk4/app';
+import { Tray } from './Tray';
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
@@ -17,8 +18,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 			application={app}
 		>
 			<centerbox cssName="centerbox">
-				<box $type="start" halign={Gtk.Align.END}>
+				<box $type="start" halign={Gtk.Align.END} spacing={8}>
 					<WorkspaceIndicator monitor={gdkmonitor.connector} />
+					<Tray />
 				</box>
 
 				<box $type="center" halign={Gtk.Align.END}>
