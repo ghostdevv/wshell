@@ -1,6 +1,7 @@
 import { WorkspaceIndicator } from './WorkspaceIndicator';
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
 import { Privacy } from './Privacy';
+import { Vitals } from './Vitals';
 import { Clock } from './Clock';
 import app from 'ags/gtk4/app';
 import { Tray } from './Tray';
@@ -28,8 +29,9 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 					<Clock />
 				</box>
 
-				<box $type="end" halign={Gtk.Align.END}>
+				<box $type="end" halign={Gtk.Align.END} spacing={8}>
 					<Privacy />
+					<Vitals />
 				</box>
 			</centerbox>
 		</window>
