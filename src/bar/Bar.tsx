@@ -1,17 +1,7 @@
 import { WorkspaceIndicator } from './WorkspaceIndicator';
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
-import { createPoll } from 'ags/time';
+import { Clock } from './Clock';
 import app from 'ags/gtk4/app';
-
-function Clock() {
-	const time = createPoll('', 500, 'date +%H:%M:%S');
-
-	return (
-		<button $type="start" halign={Gtk.Align.CENTER}>
-			<label label={time} />
-		</button>
-	);
-}
 
 export default function Bar(gdkmonitor: Gdk.Monitor) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
