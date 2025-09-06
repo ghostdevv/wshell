@@ -14,3 +14,7 @@ export function getIconByPercent(percent: number, icons: string[]): string {
 export function fmtPercent(percent: number): string {
 	return `${Math.floor(percent * 100)}%`;
 }
+
+export function textOverflow(text: string, max: number) {
+	return text.length > max - 3 ? `${text.slice(0, max - 3)}...` : text;
+}
