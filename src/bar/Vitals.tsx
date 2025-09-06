@@ -1,4 +1,5 @@
 import { createPoll } from 'ags/time';
+import { exec } from 'ags/process';
 
 const POLL_INTERVAL = 10000;
 
@@ -62,31 +63,43 @@ export function Vitals() {
 	);
 
 	return (
-		<box class="group" spacing={8}>
-			<box
-				spacing={6}
-				tooltipMarkup={cpu.as((cpu) => {
-					return cpu.cores
-						.map((percent, index) => `Core ${index}\t ${percent}%`)
-						.join('\n');
-				})}
-			>
-				<label class="icon" label="" />
-				<label class="value" label={cpu.as((cpu) => `${cpu.total}%`)} />
-			</box>
+		<button
+			class="group"
+			onClicked={() => {
+				try {
+					exec(['gtk-launch', 'io.missioncenter.MissionCenter']);
+				} catch (error) {
+					console.error('Failed to launch Mission Center:', error);
+				}
+			}}
+		>
+			<box spacing={8}>
+				<box
+					spacing={6}
+					tooltipMarkup={cpu.as((cpu) =>
+						cpu.cores.map((p, i) => `Core ${i}\t ${p}%`).join('\n'),
+					)}
+				>
+					<label class="icon" label="" />
+					<label
+						class="value"
+						label={cpu.as((cpu) => `${cpu.total}%`)}
+					/>
+				</box>
 
-			<box
-				spacing={6}
-				tooltipMarkup={memory.as(
-					(mem) => `${mem.used} / ${mem.total} MB`,
-				)}
-			>
-				<label class="icon" label="" />
-				<label
-					class="value"
-					label={memory.as((mem) => `${mem.percent}%`)}
-				/>
+				<box
+					spacing={6}
+					tooltipMarkup={memory.as(
+						(mem) => `${mem.used} / ${mem.total} MB`,
+					)}
+				>
+					<label class="icon" label="" />
+					<label
+						class="value"
+						label={memory.as((mem) => `${mem.percent}%`)}
+					/>
+				</box>
 			</box>
-		</box>
+		</button>
 	);
 }
