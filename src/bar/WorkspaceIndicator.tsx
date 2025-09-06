@@ -1,4 +1,4 @@
-import { subprocess } from 'ags/process';
+import { subprocess, exec } from 'ags/process';
 import { For, createState } from 'ags';
 import { onCleanup } from 'gnim';
 
@@ -77,10 +77,30 @@ export function WorkspaceIndicator(props: { monitor: string }) {
 		<box class="group" spacing={8}>
 			<For each={workspaces}>
 				{(workspace) => (
-					<label
+					<button
 						cssClasses={['icon', workspace.is_active ? 'fas' : '']}
-						label=""
-					/>
+						onClicked={() => {
+							if (!workspace.is_active) {
+								try {
+									exec([
+										'niri',
+										'msg',
+										'action',
+										'focus-workspace',
+										// note that this uses index not id
+										`${workspace.idx}`,
+									]);
+								} catch (error) {
+									console.error(
+										'failed to focus workspace',
+										error,
+									);
+								}
+							}
+						}}
+					>
+						<label label="" />
+					</button>
 				)}
 			</For>
 		</box>
