@@ -1,4 +1,5 @@
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
+import { MicVolume } from './MicVolume';
 import { Volume } from './Volume';
 import app from 'ags/gtk4/app';
 
@@ -14,7 +15,10 @@ export default function QuickSettings(gdkmonitor: Gdk.Monitor) {
 			anchor={TOP | RIGHT}
 			application={app}
 		>
-			<Volume />
+			<box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
+				<Volume />
+				<MicVolume />
+			</box>
 		</window>
 	);
 }

@@ -25,14 +25,15 @@ export function Volume() {
 					)}
 				/>
 
-				<button
-					class="icon"
-					onClicked={() => {
-						console.log('clicked');
-						setOpen(!open.get());
-					}}
-				>
-					<label label="" valign={Gtk.Align.CENTER} />
+				<button class="icon" onClicked={() => setOpen(!open.get())}>
+					<label
+						label=""
+						valign={Gtk.Align.CENTER}
+						cssClasses={open.as((open) => [
+							'chevron',
+							open ? 'down' : '',
+						])}
+					/>
 				</button>
 			</box>
 
