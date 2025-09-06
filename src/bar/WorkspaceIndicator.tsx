@@ -45,6 +45,13 @@ export function WorkspaceIndicator(props: { monitor: string }) {
 			if (data.WorkspaceActivated) {
 				const { id } = data.WorkspaceActivated;
 
+				if (!workspaces.get().some((w) => w.id === id)) {
+					// this checks whether the event is related to a
+					// workspace that we care about, i.e. the ones
+					// on our output.
+					return;
+				}
+
 				const patchedWorkspaces = workspaces
 					.get()
 					.map((w) => ({ ...w, is_active: w.id === id }))
