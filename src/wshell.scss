@@ -1,5 +1,7 @@
 @use './bar/_bar.scss' as *;
 
+@use './lib/slider/_slider.scss' as *;
+
 .icon {
 	font-family: 'Font Awesome 7 Free';
 	font-weight: 400;

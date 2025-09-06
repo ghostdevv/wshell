@@ -1,0 +1,27 @@
+@use '../../_theme.scss';
+
+.icon-slider {
+	label {
+		margin-left: 10px;
+	}
+
+	scale {
+		margin: 0px;
+		padding: 0px;
+		min-width: 200px;
+
+		trough {
+			background: theme.$background-tertiary;
+			min-height: 28px;
+
+			slider {
+				background: transparent;
+				box-shadow: none;
+			}
+
+			highlight {
+				background: theme.$primary;
+			}
+		}
+	}
+}
