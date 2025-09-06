@@ -4,7 +4,8 @@
 	"scripts": {
 		"format": "prettier --write .",
 		"start": "ags run src/wshell.ts --gtk 4",
-		"dev": "onchange --initial --kill 'src/**/*.*' -- pnpm start"
+		"dev": "onchange --initial --kill 'src/**/*.*' -- pnpm start",
+		"types": "ags types --directory ."
 	},
 	"dependencies": {
 		"ags": "/usr/share/ags/js",
