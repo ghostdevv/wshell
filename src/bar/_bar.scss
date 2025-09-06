@@ -1,13 +1,12 @@
 @use '../_theme.scss';
 
-window.Bar {
+window.bar {
 	background: transparent;
 	font-weight: 400;
 	font-size: 14px;
 	color: theme.$text;
 
 	> centerbox {
-		border-radius: 10px;
 		margin: 0px 8px;
 	}
 
