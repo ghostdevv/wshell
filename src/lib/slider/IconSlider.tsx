@@ -9,7 +9,7 @@ interface Props {
 
 export function IconSlider(props: Props) {
 	return (
-		<box class="icon-slider">
+		<box class="icon-slider" hexpand>
 			<overlay>
 				<label
 					$type="overlay"
@@ -18,6 +18,7 @@ export function IconSlider(props: Props) {
 				/>
 
 				<slider
+					hexpand
 					min={0}
 					max={1}
 					value={props.value}
