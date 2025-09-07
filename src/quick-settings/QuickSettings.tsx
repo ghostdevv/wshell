@@ -18,6 +18,12 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 			defaultHeight={-1}
 			defaultWidth={-1}
 			keymode={Astal.Keymode.ON_DEMAND}
+			onNotifyIsActive={(self) => {
+				// hide when window looses focus
+				if (self.visible && !self.isActive) {
+					self.hide();
+				}
+			}}
 			$={(self) => {
 				const keyController = new Gtk.EventControllerKey();
 
