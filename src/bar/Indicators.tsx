@@ -27,7 +27,6 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 	const speakerVolume = createBinding(speaker, 'volume');
 	const speakerDescription = createBinding(speaker, 'description');
 	const microphone = wp.audio.defaultMicrophone;
-	const microphoneVolume = createBinding(microphone, 'volume');
 	const microphoneMute = createBinding(microphone, 'mute');
 	const microphoneDescription = createBinding(microphone, 'description');
 
@@ -89,17 +88,12 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 							getIconByPercent(vol, ['', '', '']),
 						)}
 					/>
-					<label label={speakerVolume.as((vol) => fmtPercent(vol))} />
 				</box>
 
 				<box spacing={6} tooltipMarkup={microphoneDescription}>
 					<label
 						class="icon"
 						label={microphoneMute.as((mute) => (mute ? '' : ''))}
-					/>
-					<label
-						label={microphoneVolume.as((vol) => fmtPercent(vol))}
-						visible={microphoneMute.as((mute) => !mute)}
 					/>
 				</box>
 
