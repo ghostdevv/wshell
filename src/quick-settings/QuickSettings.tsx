@@ -5,7 +5,7 @@ import { TopBit } from './TopBit';
 import { Volume } from './Volume';
 import app from 'ags/gtk4/app';
 
-export default function QuickSettings(gdkmonitor: Gdk.Monitor) {
+export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 	const { TOP, RIGHT } = Astal.WindowAnchor;
 
 	return (
@@ -13,7 +13,7 @@ export default function QuickSettings(gdkmonitor: Gdk.Monitor) {
 			visible
 			name="quick-settings"
 			class="quick-settings"
-			gdkmonitor={gdkmonitor}
+			gdkmonitor={props.monitor}
 			anchor={TOP | RIGHT}
 			application={app}
 			defaultHeight={-1}

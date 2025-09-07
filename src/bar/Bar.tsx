@@ -7,7 +7,7 @@ import { Clock } from './Clock';
 import app from 'ags/gtk4/app';
 import { Tray } from './Tray';
 
-export default function Bar(gdkmonitor: Gdk.Monitor) {
+export default function Bar(props: { monitor: Gdk.Monitor }) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
 	return (
@@ -15,14 +15,14 @@ export default function Bar(gdkmonitor: Gdk.Monitor) {
 			visible
 			name="bar"
 			class="bar"
-			gdkmonitor={gdkmonitor}
+			gdkmonitor={props.monitor}
 			exclusivity={Astal.Exclusivity.EXCLUSIVE}
 			anchor={TOP | LEFT | RIGHT}
 			application={app}
 		>
 			<centerbox cssName="centerbox">
 				<box $type="start" halign={Gtk.Align.END} spacing={8}>
-					<WorkspaceIndicator monitor={gdkmonitor.connector} />
+					<WorkspaceIndicator monitor={props.monitor.connector} />
 					<Tray />
 				</box>
 
