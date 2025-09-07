@@ -1,15 +1,21 @@
 import { fmtPercent, getIconByPercent } from '../common';
+import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
 import Battery from 'gi://AstalBattery';
 import Network from 'gi://AstalNetwork';
-import { createBinding } from 'gnim';
 import Wp from 'gi://AstalWp';
 
 export function Indicators() {
-	const battery = createBinding(Battery.get_default(), 'percentage');
-	const batteryPercentage = battery.as((percent) => fmtPercent(percent));
-	const batteryIcon = battery.as((percent) =>
-		getIconByPercent(percent, ['', '', '', '', '']),
+	const battery = Battery.get_default();
+	const batteryCharge = createBinding(Battery.get_default(), 'percentage');
+	const batteryPercentage = batteryCharge.as((percent) =>
+		fmtPercent(percent),
+	);
+	const batteryCharging = createBinding(battery, 'charging');
+	const batteryIcon = createComputed((get) =>
+		get(batteryCharging)
+			? ''
+			: getIconByPercent(get(batteryCharge), ['', '', '', '', '']),
 	);
 
 	const wp = Wp.get_default();
