@@ -5,6 +5,9 @@ interface Props {
 	icon: string | Accessor<string>;
 	value: number | Accessor<number>;
 	onChangeValue: (value: number) => void;
+	min?: number;
+	max?: number;
+	step?: number;
 }
 
 export function IconSlider(props: Props) {
@@ -15,12 +18,14 @@ export function IconSlider(props: Props) {
 					$type="overlay"
 					halign={Gtk.Align.START}
 					label={props.icon}
+					class="icon"
 				/>
 
 				<slider
 					hexpand
-					min={0}
-					max={1}
+					min={props.min ?? 0}
+					max={props.max ?? 1}
+					step={props.step ?? 0.05}
 					value={props.value}
 					onChangeValue={({ value }) => props.onChangeValue(value)}
 				/>

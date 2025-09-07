@@ -1,4 +1,5 @@
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
+import { Brightness } from './Brightness';
 import { MicVolume } from './MicVolume';
 import { TopBit } from './TopBit';
 import { Volume } from './Volume';
@@ -30,6 +31,7 @@ export default function QuickSettings(gdkmonitor: Gdk.Monitor) {
 				>
 					<Volume />
 					<MicVolume />
+					<Brightness />
 				</box>
 			</box>
 		</window>
