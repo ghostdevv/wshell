@@ -12,6 +12,7 @@
 		"gnim": "^1.6.5"
 	},
 	"devDependencies": {
+		"date-fns": "^4.1.0",
 		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
 		"sass": "^1.92.0"

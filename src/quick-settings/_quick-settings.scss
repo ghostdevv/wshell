@@ -9,18 +9,35 @@ window.quick-settings {
 	background: theme.$background-secondary;
 	border: 2px solid theme.$background-tertiary;
 	margin: 2px 8px;
-	padding: 8px 8px;
+	padding: 8px;
 	border-radius: 16px;
 
+	.bit {
+		padding: 8px;
+	}
+
+	separator {
+		margin: 0px 8px;
+		background: theme.$background-tertiary;
+	}
+
 	button {
-		border-radius: 100px;
+		border-radius: 12px;
 		padding: 4px 12px;
 		background-color: transparent;
 
 		transition: background-color 0.2s ease-in-out;
 
 		&.icon {
-			padding: 2px 6px;
+			/* padding: 2px 6px; */
+			padding: 0px;
+			border-radius: 100px;
+			min-width: 1.8rem;
+			min-height: 1.8rem;
+		}
+
+		&.outline {
+			border: 2px solid theme.$background-tertiary;
 		}
 
 		&:hover {
