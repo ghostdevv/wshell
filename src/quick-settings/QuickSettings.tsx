@@ -14,6 +14,8 @@ export default function QuickSettings(gdkmonitor: Gdk.Monitor) {
 			gdkmonitor={gdkmonitor}
 			anchor={TOP | RIGHT}
 			application={app}
+			defaultHeight={-1}
+			defaultWidth={-1}
 		>
 			<box orientation={Gtk.Orientation.VERTICAL} spacing={8}>
 				<Volume />
