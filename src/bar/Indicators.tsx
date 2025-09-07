@@ -1,11 +1,15 @@
+import QuickSettings from '../quick-settings/QuickSettings';
 import { fmtPercent, getIconByPercent } from '../common';
 import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
 import Battery from 'gi://AstalBattery';
 import Network from 'gi://AstalNetwork';
+import type { Gdk } from 'ags/gtk4';
+import type Astal from 'gi://Astal';
+import { onCleanup } from 'ags';
 import Wp from 'gi://AstalWp';
 
-export function Indicators() {
+export function Indicators(props: { monitor: Gdk.Monitor }) {
 	const battery = Battery.get_default();
 	const batteryCharge = createBinding(Battery.get_default(), 'percentage');
 	const batteryPercentage = batteryCharge.as((percent) =>
@@ -41,54 +45,69 @@ export function Indicators() {
 				: '?',
 	);
 
+	let quickSettingsWindow = QuickSettings({
+		monitor: props.monitor,
+	}) as Astal.Window;
+
 	return (
-		<box class="group" spacing={8}>
-			<box spacing={6}>
-				<label class="icon" label={networkIcon} />
-			</box>
+		<button
+			onClicked={() => {
+				if (!quickSettingsWindow.visible) {
+					quickSettingsWindow.show();
+					quickSettingsWindow.grab_focus();
+				} else {
+					quickSettingsWindow.hide();
+				}
+			}}
+		>
+			<box spacing={8}>
+				<box spacing={6}>
+					<label class="icon" label={networkIcon} />
+				</box>
 
-			<box
-				spacing={6}
-				tooltipMarkup={bluetoothDevices.as((devices) =>
-					devices.map((d) => d.name).join('\n'),
-				)}
-			>
-				<label class="icon" label="" />
-				<label
-					label={bluetoothDevices.as(
-						(devices) => `(${devices.length})`,
+				<box
+					spacing={6}
+					tooltipMarkup={bluetoothDevices.as((devices) =>
+						devices.map((d) => d.name).join('\n'),
 					)}
-					visible={bluetoothDevices.as(
-						(devices) => devices.length > 0,
-					)}
-				/>
-			</box>
+				>
+					<label class="icon" label="" />
+					<label
+						label={bluetoothDevices.as(
+							(devices) => `(${devices.length})`,
+						)}
+						visible={bluetoothDevices.as(
+							(devices) => devices.length > 0,
+						)}
+					/>
+				</box>
 
-			<box spacing={6} tooltipMarkup={speakerDescription}>
-				<label
-					class="icon"
-					label={speakerVolume.as((vol) =>
-						getIconByPercent(vol, ['', '', '']),
-					)}
-				/>
-				<label label={speakerVolume.as((vol) => fmtPercent(vol))} />
-			</box>
+				<box spacing={6} tooltipMarkup={speakerDescription}>
+					<label
+						class="icon"
+						label={speakerVolume.as((vol) =>
+							getIconByPercent(vol, ['', '', '']),
+						)}
+					/>
+					<label label={speakerVolume.as((vol) => fmtPercent(vol))} />
+				</box>
 
-			<box spacing={6} tooltipMarkup={microphoneDescription}>
-				<label
-					class="icon"
-					label={microphoneMute.as((mute) => (mute ? '' : ''))}
-				/>
-				<label
-					label={microphoneVolume.as((vol) => fmtPercent(vol))}
-					visible={microphoneMute.as((mute) => !mute)}
-				/>
-			</box>
+				<box spacing={6} tooltipMarkup={microphoneDescription}>
+					<label
+						class="icon"
+						label={microphoneMute.as((mute) => (mute ? '' : ''))}
+					/>
+					<label
+						label={microphoneVolume.as((vol) => fmtPercent(vol))}
+						visible={microphoneMute.as((mute) => !mute)}
+					/>
+				</box>
 
-			<box spacing={6}>
-				<label class="icon" label={batteryIcon} />
-				<label label={batteryPercentage} />
+				<box spacing={6}>
+					<label class="icon" label={batteryIcon} />
+					<label label={batteryPercentage} />
+				</box>
 			</box>
-		</box>
+		</button>
 	);
 }

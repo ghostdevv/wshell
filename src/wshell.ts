@@ -35,8 +35,5 @@ app.start({
 		const monitors = createBinding(app, 'monitors');
 		handleMonitors(monitors.get());
 		monitors.subscribe(() => handleMonitors(monitors.get()));
-
-		// app.get_monitors().map(Bar);
-		// app.get_monitors().map(QuickSettings);
 	},
 });

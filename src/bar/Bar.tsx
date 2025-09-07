@@ -33,7 +33,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 				<box $type="end" halign={Gtk.Align.END} spacing={8}>
 					<Privacy />
 					<Vitals />
-					<Indicators />
+					<Indicators monitor={props.monitor} />
 				</box>
 			</centerbox>
 		</window>

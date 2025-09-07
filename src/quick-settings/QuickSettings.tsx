@@ -10,7 +10,6 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 
 	return (
 		<window
-			visible
 			name="quick-settings"
 			class="quick-settings"
 			gdkmonitor={props.monitor}
@@ -18,6 +17,21 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 			application={app}
 			defaultHeight={-1}
 			defaultWidth={-1}
+			keymode={Astal.Keymode.ON_DEMAND}
+			$={(self) => {
+				const keyController = new Gtk.EventControllerKey();
+
+				keyController.connect('key-pressed', (_, key) => {
+					if (key === Gdk.KEY_Escape) {
+						self.hide();
+						return true;
+					}
+
+					return false;
+				});
+
+				self.add_controller(keyController);
+			}}
 		>
 			<box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
 				<TopBit />
