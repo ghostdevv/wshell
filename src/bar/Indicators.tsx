@@ -1,11 +1,11 @@
+import { handleDropdownWindow } from '../lib/dropdown/utils';
 import QuickSettings from '../quick-settings/QuickSettings';
 import { fmtPercent, getIconByPercent } from '../common';
 import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
-import Battery from 'gi://AstalBattery';
 import Network from 'gi://AstalNetwork';
+import Battery from 'gi://AstalBattery';
 import type { Gdk } from 'ags/gtk4';
-import type Astal from 'gi://Astal';
 import Wp from 'gi://AstalWp';
 
 export function Indicators(props: { monitor: Gdk.Monitor }) {
@@ -43,21 +43,12 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 				: '?',
 	);
 
-	let quickSettingsWindow = QuickSettings({
-		monitor: props.monitor,
-	}) as Astal.Window;
+	const quickSettingsWindow = handleDropdownWindow(
+		QuickSettings({ monitor: props.monitor }),
+	);
 
 	return (
-		<button
-			onClicked={() => {
-				if (!quickSettingsWindow.visible) {
-					quickSettingsWindow.show();
-					quickSettingsWindow.grab_focus();
-				} else {
-					quickSettingsWindow.hide();
-				}
-			}}
-		>
+		<button onClicked={() => quickSettingsWindow.toggle()}>
 			<box spacing={8}>
 				<box spacing={6}>
 					<label class="icon" label={networkIcon} />

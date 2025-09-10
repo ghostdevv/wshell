@@ -1,27 +1,22 @@
 import CenterDropdown from '../center-dropdown/CenterDropdown';
+import { handleDropdownWindow } from '../lib/dropdown/utils';
 import { createPoll } from 'ags/time';
-import type Astal from 'gi://Astal';
 import { Gdk, Gtk } from 'ags/gtk4';
 
 export function Clock(props: { monitor: Gdk.Monitor }) {
 	const time = createPoll('', 500, 'date +%H:%M:%S');
 
-	let centerDropdownWindow = CenterDropdown({
-		monitor: props.monitor,
-	}) as Astal.Window;
+	const centerDropdownWindow = handleDropdownWindow(
+		CenterDropdown({
+			monitor: props.monitor,
+		}),
+	);
 
 	return (
 		<button
 			$type="start"
 			halign={Gtk.Align.CENTER}
-			onClicked={() => {
-				if (!centerDropdownWindow.visible) {
-					centerDropdownWindow.show();
-					centerDropdownWindow.grab_focus();
-				} else {
-					centerDropdownWindow.hide();
-				}
-			}}
+			onClicked={() => centerDropdownWindow.toggle()}
 		>
 			<label label={time} />
 		</button>
