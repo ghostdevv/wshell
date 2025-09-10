@@ -19,11 +19,17 @@ export function DropdownWindow(props: Props) {
 			defaultHeight={-1}
 			defaultWidth={-1}
 			keymode={Astal.Keymode.ON_DEMAND}
-			onNotifyIsActive={(self) => {
-				// hide when window looses focus
-				if (self.visible && !self.isActive) {
-					self.hide();
-				}
+			onNotifyIsActive={(self, p) => {
+				// hack to make sure this event runs after the
+				// activator on clicked event
+				setTimeout(() => {
+					// hide when window looses focus
+					if (self.visible && !self.isActive) {
+						self.hide();
+					}
+				}, 200);
+
+				return false;
 			}}
 			$={(self) => {
 				const keyController = new Gtk.EventControllerKey();
