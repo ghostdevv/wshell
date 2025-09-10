@@ -16,8 +16,8 @@ export function Vitals() {
 				return { used: null, total: null, percent: null };
 			}
 
-			const total = parseInt(parts[1]);
-			const used = parseInt(parts[2]);
+			const total = Number.parseInt(parts[1], 10);
+			const used = Number.parseInt(parts[2], 10);
 			const percent = Math.floor((used / total) * 100);
 			return { used, total, percent };
 		},
@@ -42,7 +42,7 @@ export function Vitals() {
 			const totalValues = totalLine
 				.split(/\s+/)
 				.slice(1)
-				.map((v) => parseInt(v));
+				.map((v) => Number.parseInt(v, 10));
 			const total = calculatePercent(totalValues);
 
 			// Individual cores (cpu0, cpu1, cpu2, etc.)
@@ -54,7 +54,7 @@ export function Vitals() {
 				const values = line
 					.split(/\s+/)
 					.slice(1)
-					.map((v) => parseInt(v));
+					.map((v) => Number.parseInt(v, 10));
 				cores.push(calculatePercent(values));
 			}
 

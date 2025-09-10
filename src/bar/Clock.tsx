@@ -1,7 +1,7 @@
 import CenterDropdown from '../center-dropdown/CenterDropdown';
 import { handleDropdownWindow } from '../lib/dropdown/utils';
+import { type Gdk, Gtk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
-import { Gdk, Gtk } from 'ags/gtk4';
 import { format } from 'date-fns';
 
 export function Clock(props: { monitor: Gdk.Monitor }) {

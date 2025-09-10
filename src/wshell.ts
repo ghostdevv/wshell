@@ -1,5 +1,3 @@
-import QuickSettings from './quick-settings/QuickSettings';
-import GObject from 'gi://GObject?version=2.0';
 import { createBinding } from 'gnim';
 import type { Gdk } from 'ags/gtk4';
 import style from './wshell.scss';

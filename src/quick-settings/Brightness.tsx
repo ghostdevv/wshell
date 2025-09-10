@@ -12,8 +12,8 @@ function getInfo() {
 
 	return {
 		device,
-		max: parseInt(max),
-		initial: parseInt(initial),
+		max: Number.parseInt(max, 10),
+		initial: Number.parseInt(initial, 10),
 	};
 }
 
@@ -21,22 +21,19 @@ export function Brightness() {
 	const { device, max, initial } = getInfo();
 	const [brightness, setBrightness] = createState(initial);
 
-	monitorFile(
-		`/sys/class/backlight/${device}/brightness`,
-		async (file, a) => {
-			const current = await execAsync([
-				'brightnessctl',
-				'--machine-readable',
-				'get',
-			]);
+	monitorFile(`/sys/class/backlight/${device}/brightness`, async () => {
+		const current = await execAsync([
+			'brightnessctl',
+			'--machine-readable',
+			'get',
+		]);
 
-			const newBrightness = parseInt(current.trim());
+		const newBrightness = Number.parseInt(current.trim(), 10);
 
-			if (brightness.get() !== newBrightness) {
-				setBrightness(newBrightness);
-			}
-		},
-	);
+		if (brightness.get() !== newBrightness) {
+			setBrightness(newBrightness);
+		}
+	});
 
 	function onChangeValue(value: number) {
 		execAsync(['brightnessctl', 'set', `${value}`]);

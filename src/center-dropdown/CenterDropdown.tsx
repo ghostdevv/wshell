@@ -1,5 +1,5 @@
 import { DropdownWindow } from '../lib/dropdown/DropdownWindow';
-import { Astal, Gtk, Gdk } from 'ags/gtk4';
+import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import { format } from 'date-fns';
 

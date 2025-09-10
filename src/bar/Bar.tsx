@@ -1,5 +1,5 @@
 import { WorkspaceIndicator } from './WorkspaceIndicator';
-import { Astal, Gtk, Gdk } from 'ags/gtk4';
+import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Indicators } from './Indicators';
 import { Privacy } from './Privacy';
 import { Vitals } from './Vitals';

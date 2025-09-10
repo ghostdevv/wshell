@@ -19,7 +19,7 @@ export function DropdownWindow(props: Props) {
 			defaultHeight={-1}
 			defaultWidth={-1}
 			keymode={Astal.Keymode.ON_DEMAND}
-			onNotifyIsActive={(self, p) => {
+			onNotifyIsActive={(self) => {
 				// hack to make sure this event runs after the
 				// activator on clicked event
 				setTimeout(() => {

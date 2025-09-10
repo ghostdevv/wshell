@@ -1,8 +1,8 @@
-import GObject from 'gi://GObject?version=2.0';
-import { Astal, Gdk } from 'ags/gtk4';
+import type GObject from 'gi://GObject?version=2.0';
+import type { Astal } from 'ags/gtk4';
 
 export function handleDropdownWindow(window: GObject.Object) {
-	let instance = window as Astal.Window;
+	const instance = window as Astal.Window;
 
 	return {
 		toggle() {

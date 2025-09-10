@@ -5,7 +5,7 @@ import { onCleanup } from 'gnim';
 interface Workspace {
 	id: number;
 	idx: number;
-	name: any;
+	name?: string;
 	output: string;
 	is_urgent: boolean;
 	is_active: boolean;
