@@ -1,0 +1,22 @@
+@use '../_theme.scss';
+
+window.center-dropdown {
+	background: transparent;
+	font-weight: 400;
+	font-size: 14px;
+	color: theme.$text;
+
+	background: theme.$background-secondary;
+	border: 2px solid theme.$background-tertiary;
+	margin: 2px 8px;
+	padding: 8px;
+	border-radius: 16px;
+
+	.bit {
+		padding: 8px;
+	}
+
+	calendar {
+		border-radius: 12px;
+	}
+}

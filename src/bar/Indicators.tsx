@@ -6,7 +6,6 @@ import Battery from 'gi://AstalBattery';
 import Network from 'gi://AstalNetwork';
 import type { Gdk } from 'ags/gtk4';
 import type Astal from 'gi://Astal';
-import { onCleanup } from 'ags';
 import Wp from 'gi://AstalWp';
 
 export function Indicators(props: { monitor: Gdk.Monitor }) {

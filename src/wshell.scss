@@ -1,7 +1,9 @@
 @use './bar/_bar.scss' as *;
 @use './quick-settings/_quick-settings.scss' as *;
-
+@use './center-dropdown/_center-dropdown.scss' as *;
 @use './lib/slider/_slider.scss' as *;
+
+@use './_theme.scss';
 
 .icon {
 	font-family: 'Font Awesome 7 Free';
@@ -10,4 +12,9 @@
 	&.fas {
 		font-weight: 900;
 	}
+}
+
+separator {
+	margin: 0px 8px;
+	background: theme.$background-tertiary;
 }

@@ -27,7 +27,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 				</box>
 
 				<box $type="center" halign={Gtk.Align.END}>
-					<Clock />
+					<Clock monitor={props.monitor} />
 				</box>
 
 				<box $type="end" halign={Gtk.Align.END} spacing={8}>
