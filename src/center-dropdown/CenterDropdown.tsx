@@ -1,7 +1,7 @@
+import { DropdownWindow } from '../lib/dropdown/DropdownWindow';
 import { Astal, Gtk, Gdk } from 'ags/gtk4';
 import { interval } from 'ags/time';
 import { createState } from 'gnim';
-import app from 'ags/gtk4/app';
 import { format } from 'date-fns';
 
 export default function CenterDropdown(props: { monitor: Gdk.Monitor }) {
@@ -11,35 +11,10 @@ export default function CenterDropdown(props: { monitor: Gdk.Monitor }) {
 	interval(500, () => setNow(new Date()));
 
 	return (
-		<window
+		<DropdownWindow
 			name="center-dropdown"
-			class="center-dropdown"
-			gdkmonitor={props.monitor}
+			monitor={props.monitor}
 			anchor={TOP}
-			application={app}
-			defaultHeight={-1}
-			defaultWidth={-1}
-			keymode={Astal.Keymode.ON_DEMAND}
-			onNotifyIsActive={(self) => {
-				// hide when window looses focus
-				if (self.visible && !self.isActive) {
-					self.hide();
-				}
-			}}
-			$={(self) => {
-				const keyController = new Gtk.EventControllerKey();
-
-				keyController.connect('key-pressed', (_, key) => {
-					if (key === Gdk.KEY_Escape) {
-						self.hide();
-						return true;
-					}
-
-					return false;
-				});
-
-				self.add_controller(keyController);
-			}}
 		>
 			<box orientation={Gtk.Orientation.VERTICAL} spacing={4}>
 				<box
@@ -66,6 +41,6 @@ export default function CenterDropdown(props: { monitor: Gdk.Monitor }) {
 					<Gtk.Calendar />
 				</box>
 			</box>
-		</window>
+		</DropdownWindow>
 	);
 }
