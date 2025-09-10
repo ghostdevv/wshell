@@ -16,6 +16,7 @@ export function Tray() {
 				{(item) => (
 					<button
 						class="icon"
+						tooltipMarkup={item.tooltipMarkup}
 						$={(self) => {
 							const popover = new Gtk.PopoverMenu();
 							popover.set_menu_model(item.get_menu_model());
@@ -49,7 +50,7 @@ export function Tray() {
 							});
 						}}
 					>
-						<image gicon={item.gicon} />
+						<image gicon={createBinding(item, 'gicon')} />
 					</button>
 				)}
 			</For>
