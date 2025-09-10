@@ -2,16 +2,18 @@
 	"name": "wshell",
 	"version": "0.1.0",
 	"scripts": {
-		"format": "prettier --write .",
 		"start": "ags run src/wshell.ts --gtk 4",
 		"dev": "onchange --initial --kill 'src/**/*.*' -- pnpm start",
-		"types": "ags types --directory ."
+		"types": "ags types --directory .",
+		"check": "biome check && prettier --check .",
+		"fix": "biome check --write && prettier --write ."
 	},
 	"dependencies": {
 		"ags": "/usr/share/ags/js",
 		"gnim": "^1.6.5"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "2.2.3",
 		"date-fns": "^4.1.0",
 		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
