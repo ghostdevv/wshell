@@ -27,7 +27,7 @@ jobs:
                     meson valac valadoc gobject-introspection libgirepository1.0-dev \
                     libwayland-dev gtk-doc-tools gjs libjson-glib-dev \
                     libgtk-3-dev libgtk-4-dev \
-                    wireplumber libnm-dev
+                    pipewire lua libnm-dev
 
             - name: Build appmenu-glib-translator
               working-directory: vendor
@@ -36,6 +36,14 @@ jobs:
                   cd vala-panel-appmenu/subprojects/appmenu-glib-translator
                   meson setup build
                   sudo meson install -C build
+
+            - name: Build wireplumber
+              working-directory: vendor
+              run: |
+                  git clone --depth 1 https://gitlab.freedesktop.org/pipewire/wireplumber.git
+                  cd wireplumber
+                  meson setup --prefix=/usr build
+                  sudo ninja -C build install
 
             - name: Clone gtk layer shell
               working-directory: vendor
