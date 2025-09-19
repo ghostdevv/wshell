@@ -4,9 +4,30 @@ import { fmtPercent, getIconByPercent } from '../common';
 import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
 import Network from 'gi://AstalNetwork';
+import { execAsync } from 'ags/process';
 import Battery from 'gi://AstalBattery';
 import type { Gdk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
+
+async function notify(message: string, type?: 'low' | 'normal' | 'critical') {
+	await execAsync(['notify-send', type ? `--urgency=${type}` : '', message]);
+}
+
+async function checkBatteryPercent(percent: number) {
+	switch (percent) {
+		case 0.1:
+			await notify('Battery is low', 'normal');
+			break;
+
+		case 0.05:
+			await notify('Battery is critically low', 'critical');
+			break;
+
+		case 0.01:
+			await notify('Battery is critically critically low', 'critical');
+			break;
+	}
+}
 
 export function Indicators(props: { monitor: Gdk.Monitor }) {
 	const battery = Battery.get_default();
@@ -20,6 +41,9 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 			? ''
 			: getIconByPercent(get(batteryCharge), ['', '', '', '', '']),
 	);
+
+	checkBatteryPercent(batteryCharge.get());
+	batteryCharge.subscribe(() => checkBatteryPercent(batteryCharge.get()));
 
 	const wp = Wp.get_default();
 	const speaker = wp.audio.defaultSpeaker;
