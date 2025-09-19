@@ -1,37 +1,48 @@
-import { createBinding } from 'gnim';
+import { createBinding, createRoot, onCleanup } from 'gnim';
 import type { Gdk } from 'ags/gtk4';
 import style from './wshell.scss';
 import app from 'ags/gtk4/app';
 import Bar from './bar/Bar';
-import type Astal from 'gi://Astal';
 
 app.start({
 	css: style,
 	instanceName: 'wshell',
 	main() {
-		const windows = new Map<string, Astal.Window>();
+		const bars = new Map<string, () => void>();
 
-		function handleMonitors(monitors: Gdk.Monitor[]) {
-			for (const monitor of monitors) {
-				if (monitor.is_valid() && !windows.has(monitor.connector)) {
-					windows.set(
-						monitor.connector,
-						Bar({ monitor }) as Astal.Window,
-					);
+		function monitorsChanged(monitors: (Gdk.Monitor | null)[]) {
+			for (const description of bars.keys()) {
+				if (!monitors.some((m) => m?.description === description)) {
+					const cleanup = bars.get(description);
+					cleanup?.();
 				}
 			}
 
-			for (const [connector, window] of windows.entries()) {
-				const monitor = monitors.find((m) => m.connector === connector);
-				if (!monitor || !monitor.is_valid()) {
-					window.destroy();
-					windows.delete(connector);
+			for (const monitor of monitors) {
+				if (!monitor || bars.has(monitor.description)) {
+					continue;
 				}
+
+				createRoot((dispose) => {
+					const bar = Bar({ monitor });
+					bars.set(monitor.description, () => {
+						dispose();
+						bar.close();
+						bars.delete(monitor.description);
+					});
+				});
 			}
 		}
 
 		const monitors = createBinding(app, 'monitors');
-		handleMonitors(monitors.get());
-		monitors.subscribe(() => handleMonitors(monitors.get()));
+
+		monitorsChanged(app.get_monitors());
+		monitors.subscribe(() => monitorsChanged(app.get_monitors()));
+
+		onCleanup(() => {
+			for (const cleanup of bars.values()) {
+				cleanup();
+			}
+		});
 	},
 });
