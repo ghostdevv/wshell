@@ -65,14 +65,14 @@ jobs:
 
             - name: Clone AGS
               working-directory: vendor
-              run: git clone --depth 1 git clone https://github.com/aylur/ags.git
+              run: git clone --depth 1 https://github.com/aylur/ags.git
 
             - name: Build AGS
               working-directory: vendor/ags
               run: |
                   npm clean-install
                   meson setup build
-                  meson install -C build
+                  sudo meson install -C build
 
             - name: Setup PNPM
               uses: pnpm/action-setup@v4.1.0
