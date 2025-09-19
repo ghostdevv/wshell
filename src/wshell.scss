@@ -1,6 +1,6 @@
-@use './bar/_bar.scss' as *;
-@use './quick-settings/_quick-settings.scss' as *;
-@use './center-dropdown/_center-dropdown.scss' as *;
+@use './windows/bar/_bar.scss' as *;
+@use './windows/quick-settings/_quick-settings.scss' as *;
+@use './windows/center-dropdown/_center-dropdown.scss' as *;
 @use './lib/slider/_slider.scss' as *;
 
 @use './_theme.scss';

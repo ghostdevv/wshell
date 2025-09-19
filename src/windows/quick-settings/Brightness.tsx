@@ -1,4 +1,4 @@
-import { IconSlider } from '../lib/slider/IconSlider';
+import { IconSlider } from '../../lib/slider/IconSlider';
 import { monitorFile } from 'ags/file';
 import { exec, execAsync } from 'ags/process';
 import { createState } from 'gnim';
