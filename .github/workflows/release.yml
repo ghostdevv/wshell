@@ -72,37 +72,37 @@ jobs:
                   sudo meson install -C build
 
             - name: Build astal tray
-              working-directory: vendor/astal/lib/astal/tray
+              working-directory: vendor/astal/lib/tray
               run: |
                   meson setup build
                   sudo meson install -C build
 
             - name: Build astal wireplumber
-              working-directory: vendor/astal/lib/astal/wireplumber
+              working-directory: vendor/astal/lib/wireplumber
               run: |
                   meson setup build
                   sudo meson install -C build
 
             - name: Build astal powerprofiles
-              working-directory: vendor/astal/lib/astal/powerprofiles
+              working-directory: vendor/astal/lib/powerprofiles
               run: |
                   meson setup build
                   sudo meson install -C build
 
             - name: Build astal bluetooth
-              working-directory: vendor/astal/lib/astal/bluetooth
+              working-directory: vendor/astal/lib/bluetooth
               run: |
                   meson setup build
                   sudo meson install -C build
 
             - name: Build astal battery
-              working-directory: vendor/astal/lib/astal/battery
+              working-directory: vendor/astal/lib/battery
               run: |
                   meson setup build
                   sudo meson install -C build
 
             - name: Build astal network
-              working-directory: vendor/astal/lib/astal/network
+              working-directory: vendor/astal/lib/network
               run: |
                   meson setup build
                   sudo meson install -C build
