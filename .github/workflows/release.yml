@@ -40,7 +40,7 @@ jobs:
             - name: Build wireplumber
               working-directory: vendor
               run: |
-                  git clone --depth 1 https://gitlab.freedesktop.org/pipewire/wireplumber.git
+                  git clone --depth 1 https://github.com/PipeWire/wireplumber.git
                   cd wireplumber
                   meson setup --prefix=/usr build
                   sudo ninja -C build install
