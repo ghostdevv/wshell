@@ -1,6 +1,6 @@
-import { WorkspaceIndicator } from './WorkspaceIndicator';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Indicators } from './Indicators';
+import { Workspaces } from './Workspaces';
 import { Privacy } from './Privacy';
 import { Vitals } from './Vitals';
 import { Clock } from './Clock';
@@ -22,7 +22,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 		>
 			<centerbox cssName="centerbox">
 				<box $type="start" halign={Gtk.Align.END} spacing={8}>
-					<WorkspaceIndicator monitor={props.monitor.connector} />
+					<Workspaces monitor={props.monitor.connector} />
 					<Tray />
 				</box>
 

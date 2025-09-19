@@ -27,7 +27,7 @@ interface Event {
 	WorkspaceActivated?: WorkspaceActivatedEvent;
 }
 
-export function WorkspaceIndicator(props: { monitor: string }) {
+export function Workspaces(props: { monitor: string }) {
 	const [workspaces, setWorkspaces] = createState<Workspace[]>([]);
 
 	function handleEvent(msg: string) {
