@@ -2,11 +2,13 @@
 	"name": "wshell",
 	"version": "0.1.0",
 	"scripts": {
-		"start": "ags run src/wshell.ts --gtk 4",
+		"start": "ags run --gtk 4 src/wshell.ts",
+		"bundle": "ags bundle --gtk 4 src/wshell.ts wshell",
 		"dev": "onchange --initial --kill 'src/**/*.*' -- pnpm start",
 		"types": "ags types --directory .",
 		"check": "biome check && prettier --check .",
-		"fix": "biome check --write && prettier --write ."
+		"fix": "biome check --write && prettier --write .",
+		"release": "changelogen --release"
 	},
 	"dependencies": {
 		"ags": "/usr/share/ags/js",
@@ -14,6 +16,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.3",
+		"changelogen": "^0.6.2",
 		"date-fns": "^4.1.0",
 		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
