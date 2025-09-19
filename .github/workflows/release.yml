@@ -81,6 +81,12 @@ jobs:
                   meson setup build
                   sudo meson install -C build
 
+            - name: Build astal-gtk3
+              working-directory: vendor/astal/lib/astal/gtk3
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
             - name: Build astal tray
               working-directory: vendor/astal/lib/tray
               run: |

@@ -14,5 +14,5 @@
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "@girs/**/*.ts"],
-	"exclude": ["nodemodules/**"]
+	"exclude": ["node_modules/**", "vendor/**"]
 }
