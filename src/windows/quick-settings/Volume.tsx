@@ -1,5 +1,5 @@
-import { getIconByPercent, textOverflow } from '../../common';
-import { IconSlider } from '../../lib/slider/IconSlider';
+import { getIconByPercent, textOverflow } from '$lib/common';
+import { IconSlider } from '$lib/slider/IconSlider';
 import { createBinding, createState } from 'gnim';
 import Gtk from 'gi://Gtk?version=4.0';
 import Wp from 'gi://AstalWp';

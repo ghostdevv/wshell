@@ -1,4 +1,4 @@
-import { DropdownWindow } from '../../lib/dropdown/DropdownWindow';
+import { DropdownWindow } from '$lib/dropdown/DropdownWindow';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Brightness } from './Brightness';
 import { MicVolume } from './MicVolume';

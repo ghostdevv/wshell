@@ -6,7 +6,12 @@
 		"lib": ["ES2023"],
 		"moduleResolution": "Bundler",
 		"jsx": "react-jsx",
-		"jsxImportSource": "ags/gtk4"
+		"jsxImportSource": "ags/gtk4",
+		"baseUrl": ".",
+		"paths": {
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"]
+		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "@girs/**/*.ts"],
 	"exclude": ["nodemodules/**"]

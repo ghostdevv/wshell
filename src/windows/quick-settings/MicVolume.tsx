@@ -1,6 +1,6 @@
-import { IconSlider } from '../../lib/slider/IconSlider';
+import { IconSlider } from '$lib/slider/IconSlider';
 import { createBinding, createState } from 'gnim';
-import { textOverflow } from '../../common';
+import { textOverflow } from '$lib/common';
 import Gtk from 'gi://Gtk?version=4.0';
 import Wp from 'gi://AstalWp';
 import { For } from 'ags';
