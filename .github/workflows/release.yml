@@ -42,7 +42,7 @@ jobs:
               run: |
                   git clone --depth 1 https://github.com/PipeWire/wireplumber.git
                   cd wireplumber
-                  meson setup --prefix=/usr build
+                  meson setup build
                   sudo ninja -C build install
 
             - name: Clone gtk layer shell
