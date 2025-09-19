@@ -25,8 +25,16 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y \
                     meson valac valadoc gobject-introspection libgirepository1.0-dev \
-                    libwayland-dev gtk-doc-tools gjs \
+                    libwayland-dev gtk-doc-tools gjs libjson-glib-dev \
                     libgtk-3-dev libgtk-4-dev \
+
+            - name: Build appmenu-glib-translator
+              working-directory: vendor
+              run: |
+                  git clone --depth 1 https://github.com/rilian-la-te/vala-panel-appmenu.git
+                  cd vala-panel-appmenu/subprojects/appmenu-glib-translator
+                  meson setup build
+                  sudo meson install -C build
 
             - name: Clone gtk layer shell
               working-directory: vendor
@@ -59,6 +67,42 @@ jobs:
 
             - name: Build astal-gtk4
               working-directory: vendor/astal/lib/astal/gtk4
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal tray
+              working-directory: vendor/astal/lib/astal/tray
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal wireplumber
+              working-directory: vendor/astal/lib/astal/wireplumber
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal powerprofiles
+              working-directory: vendor/astal/lib/astal/powerprofiles
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal bluetooth
+              working-directory: vendor/astal/lib/astal/bluetooth
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal battery
+              working-directory: vendor/astal/lib/astal/battery
+              run: |
+                  meson setup build
+                  sudo meson install -C build
+
+            - name: Build astal network
+              working-directory: vendor/astal/lib/astal/network
               run: |
                   meson setup build
                   sudo meson install -C build
