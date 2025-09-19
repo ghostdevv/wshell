@@ -30,5 +30,5 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 				</box>
 			</box>
 		</DropdownWindow>
-	);
+	) as Astal.Window;
 }

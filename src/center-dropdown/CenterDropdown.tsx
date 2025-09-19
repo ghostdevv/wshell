@@ -39,5 +39,5 @@ export default function CenterDropdown(props: { monitor: Gdk.Monitor }) {
 				</box>
 			</box>
 		</DropdownWindow>
-	);
+	) as Astal.Window;
 }

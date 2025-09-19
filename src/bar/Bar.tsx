@@ -37,5 +37,5 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 				</box>
 			</centerbox>
 		</window>
-	);
+	) as Astal.Window;
 }
