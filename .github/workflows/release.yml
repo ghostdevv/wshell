@@ -55,13 +55,13 @@ jobs:
               working-directory: vendor/astal/lib/astal/io
               run: |
                   meson setup build
-                  meson install -C build
+                  sudo meson install -C build
 
             - name: Build astal-gtk4
               working-directory: vendor/astal/lib/astal/gtk4
               run: |
                   meson setup build
-                  meson install -C build
+                  sudo meson install -C build
 
             - name: Clone AGS
               working-directory: vendor
