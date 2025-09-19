@@ -25,8 +25,8 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y \
                     meson valac valadoc gobject-introspection libgirepository1.0-dev \
+                    libwayland-dev gtk-doc-tools gjs \
                     libgtk-3-dev libgtk-4-dev \
-                    libwayland-dev gtk-doc-tools
 
             - name: Clone gtk layer shell
               working-directory: vendor
