@@ -25,8 +25,27 @@ jobs:
                   sudo apt-get update
                   sudo apt-get install -y \
                     meson valac valadoc gobject-introspection libgirepository1.0-dev \
-                    libgtk-3-dev libgtk3-layer-shell-dev \
-                    libgtk-4-dev libgtk-layer-shell-dev
+                    libgtk-3-dev libgtk-4-dev \
+                    libwayland-dev gtk-doc-tools
+
+            - name: Clone gtk layer shell
+              working-directory: vendor
+              run: |
+                  git clone --depth 1 https://github.com/wmww/gtk-layer-shell.git
+                  git clone --depth 1 https://github.com/wmww/gtk4-layer-shell.git
+
+            - name: Build gtk 4 layer shell
+              working-directory: vendor/gtk4-layer-shell
+              run: |
+                  meson setup build
+                  ninja -C build
+                  sudo ninja -C build install
+
+            - name: Build gtk 3 layer shell
+              working-directory: vendor/gtk-layer-shell
+              run: |
+                  meson setup build
+                  sudo ninja -C build install
 
             - name: Clone Astal
               working-directory: vendor
