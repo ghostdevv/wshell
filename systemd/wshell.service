@@ -1,0 +1,12 @@
+[Unit]
+Description=wshell
+PartOf=graphical-session.target
+After=graphical-session.target
+Requisite=graphical-session.target
+
+[Service]
+ExecStart=/usr/local/bin/wshell
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
