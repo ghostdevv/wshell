@@ -7,23 +7,22 @@ settings:
 importers:
 
   .:
-    dependencies:
-      ags:
-        specifier: /usr/share/ags/js
-        version: link:../../../../usr/share/ags/js
-      gnim:
-        specifier: ^1.6.5
-        version: 1.6.5
     devDependencies:
       '@biomejs/biome':
         specifier: 2.2.3
         version: 2.2.3
+      ags:
+        specifier: link:/usr/share/ags/js
+        version: link:../../../../usr/share/ags/js
       changelogen:
         specifier: ^0.6.2
         version: 0.6.2
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
+      gnim:
+        specifier: ^1.6.5
+        version: 1.6.5
       onchange:
         specifier: ^7.1.0
         version: 7.1.0

@@ -10,14 +10,12 @@
 		"fix": "biome check --write && prettier --write .",
 		"release": "changelogen --release"
 	},
-	"dependencies": {
-		"ags": "/usr/share/ags/js",
-		"gnim": "^1.6.5"
-	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.3",
+		"ags": "link:/usr/share/ags/js",
 		"changelogen": "^0.6.2",
 		"date-fns": "^4.1.0",
+		"gnim": "^1.6.5",
 		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
 		"sass": "^1.92.0"
