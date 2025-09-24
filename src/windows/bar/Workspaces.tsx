@@ -13,7 +13,7 @@ export function Workspaces(props: { output: Accessor<string | null> }) {
 	return (
 		<box
 			class="group"
-			spacing={8}
+			spacing={4}
 			visible={workspaces.as((w) => w.length > 0)}
 		>
 			<For each={workspaces}>
