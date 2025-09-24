@@ -1,6 +1,7 @@
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Indicators } from './Indicators';
 import { Workspaces } from './Workspaces';
+import { createBinding } from 'ags';
 import { Privacy } from './Privacy';
 import { Vitals } from './Vitals';
 import { Clock } from './Clock';
@@ -9,6 +10,7 @@ import { Tray } from './Tray';
 
 export default function Bar(props: { monitor: Gdk.Monitor }) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
+	const output = createBinding(props.monitor, 'connector');
 
 	return (
 		<window
@@ -22,7 +24,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 		>
 			<centerbox cssName="centerbox">
 				<box $type="start" halign={Gtk.Align.END} spacing={8}>
-					<Workspaces monitor={props.monitor.connector} />
+					<Workspaces output={output} />
 					<Tray />
 				</box>
 

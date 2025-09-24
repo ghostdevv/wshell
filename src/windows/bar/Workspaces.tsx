@@ -1,80 +1,21 @@
-import { subprocess, exec } from 'ags/process';
-import { For, createState } from 'ags';
-import { onCleanup } from 'gnim';
+import { createComputed, type Accessor } from 'gnim';
+import { workspacesMap } from '$lib/workspaces';
+import { exec } from 'ags/process';
+import { For } from 'ags';
 
-interface Workspace {
-	id: number;
-	idx: number;
-	name?: string;
-	output: string;
-	is_urgent: boolean;
-	is_active: boolean;
-	is_focused: boolean;
-	active_window_id?: number;
-}
-
-interface WorkspacesChangedEvent {
-	workspaces: Workspace[];
-}
-
-interface WorkspaceActivatedEvent {
-	id: number;
-	focused: boolean;
-}
-
-interface Event {
-	WorkspacesChanged?: WorkspacesChangedEvent;
-	WorkspaceActivated?: WorkspaceActivatedEvent;
-}
-
-export function Workspaces(props: { monitor: string }) {
-	const [workspaces, setWorkspaces] = createState<Workspace[]>([]);
-
-	function handleEvent(msg: string) {
-		try {
-			const data: Event = JSON.parse(msg);
-
-			if (data.WorkspacesChanged) {
-				const newWorkspaces = data.WorkspacesChanged.workspaces
-					.filter((w) => w.output === props.monitor)
-					.sort((a, b) => a.idx - b.idx);
-
-				setWorkspaces(newWorkspaces);
-			}
-
-			if (data.WorkspaceActivated) {
-				const { id } = data.WorkspaceActivated;
-
-				if (!workspaces.get().some((w) => w.id === id)) {
-					// this checks whether the event is related to a
-					// workspace that we care about, i.e. the ones
-					// on our output.
-					return;
-				}
-
-				const patchedWorkspaces = workspaces
-					.get()
-					.map((w) => ({ ...w, is_active: w.id === id }))
-					.sort((a, b) => a.idx - b.idx);
-
-				setWorkspaces(patchedWorkspaces);
-			}
-		} catch (error) {
-			console.error('failed to parse niri event stream message', error);
-		}
-	}
-
-	const proc = subprocess(
-		['niri', 'msg', '--json', 'event-stream'],
-		handleEvent,
-	);
-
-	onCleanup(() => {
-		proc.kill();
+export function Workspaces(props: { output: Accessor<string | null> }) {
+	const workspaces = createComputed((get) => {
+		const workspacesMapValue = get(workspacesMap);
+		const output = get(props.output);
+		return output ? (workspacesMapValue[output] ?? []) : [];
 	});
 
 	return (
-		<box class="group" spacing={8}>
+		<box
+			class="group"
+			spacing={8}
+			visible={workspaces.as((w) => w.length > 0)}
+		>
 			<For each={workspaces}>
 				{(workspace) => (
 					<button
