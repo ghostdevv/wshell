@@ -52,11 +52,15 @@ export const workspacesMap = createExternal<WorkspacesMap>({}, (set) => {
 
 				set((workspacesMap) => {
 					for (const workspaces of Object.values(workspacesMap)) {
-						for (const workspace of workspaces) {
-							if (workspace.id === id) {
-								workspace.is_active = true;
-							} else {
-								workspace.is_active = false;
+						const hasChanged = workspaces.some((w) => w.id === id);
+
+						if (hasChanged) {
+							for (const workspace of workspaces) {
+								if (workspace.id === id) {
+									workspace.is_active = true;
+								} else {
+									workspace.is_active = false;
+								}
 							}
 						}
 					}
