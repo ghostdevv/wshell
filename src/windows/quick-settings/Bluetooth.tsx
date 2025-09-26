@@ -4,6 +4,7 @@ import Bt from 'gi://AstalBluetooth';
 import { Gtk } from 'ags/gtk4';
 import { For } from 'ags';
 import { notify } from '$lib/notify';
+import { Revealer } from '$lib/quick-settings/Revealer';
 
 function Device(props: { device: Bt.Device }) {
 	const alias = createBinding(props.device, 'alias');
@@ -140,21 +141,11 @@ export function Bluetooth() {
 				</button>
 			</box>
 
-			<revealer
-				hexpand
-				revealChild={open}
-				transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-			>
-				<box
-					hexpand
-					css="margin-top: 8px;"
-					orientation={Gtk.Orientation.VERTICAL}
-				>
-					<For each={devices}>
-						{(device) => <Device device={device} />}
-					</For>
-				</box>
-			</revealer>
+			<Revealer open={open}>
+				<For each={devices}>
+					{(device) => <Device device={device} />}
+				</For>
+			</Revealer>
 		</box>
 	);
 }
