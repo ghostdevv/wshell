@@ -47,9 +47,9 @@ export function TopBit() {
 					<label class="icon" label="" />
 				</button>
 
-				<button valign={Gtk.Align.CENTER} class="icon outline">
+				{/*<button valign={Gtk.Align.CENTER} class="icon outline">
 					<label class="icon" label="" />
-				</button>
+				</button>*/}
 			</box>
 		</centerbox>
 	);
