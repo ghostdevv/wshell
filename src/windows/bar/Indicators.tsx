@@ -12,15 +12,21 @@ import Wp from 'gi://AstalWp';
 async function checkBatteryPercent(percent: number) {
 	switch (percent) {
 		case 0.1:
-			await notify('Battery is low', 'normal');
+			await notify({ message: 'Battery is low' });
 			break;
 
 		case 0.05:
-			await notify('Battery is critically low', 'critical');
+			await notify({
+				message: 'Battery is critically low',
+				type: 'critical',
+			});
 			break;
 
 		case 0.01:
-			await notify('Battery is critically critically low', 'critical');
+			await notify({
+				message: 'Battery is critically critically low',
+				type: 'critical',
+			});
 			break;
 	}
 }
