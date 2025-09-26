@@ -82,6 +82,7 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 
 				<box
 					spacing={6}
+					visible={createBinding(bluetooth, 'isPowered')}
 					tooltipMarkup={bluetoothDevices.as((devices) =>
 						devices.map((d) => d.name).join('\n'),
 					)}
