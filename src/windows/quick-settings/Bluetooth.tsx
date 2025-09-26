@@ -1,23 +1,18 @@
+import type { RevealerItemState } from '$lib/quick-settings/RevealerItem';
 import { createBinding, createState, createComputed } from 'gnim';
+import { RevealerItem } from '$lib/quick-settings/RevealerItem';
+import { Revealer } from '$lib/quick-settings/Revealer';
 import { getIconByPercent } from '$lib/common';
+import { notify } from '$lib/notify';
 import Bt from 'gi://AstalBluetooth';
 import { Gtk } from 'ags/gtk4';
 import { For } from 'ags';
-import { notify } from '$lib/notify';
-import { Revealer } from '$lib/quick-settings/Revealer';
 
 function Device(props: { device: Bt.Device }) {
 	const alias = createBinding(props.device, 'alias');
 	const battery = createBinding(props.device, 'batteryPercentage');
 	const connected = createBinding(props.device, 'connected');
 	const connecting = createBinding(props.device, 'connecting');
-
-	const icon = createComputed((get) => {
-		const isConnected = get(connected);
-		const isConnecting = get(connecting);
-
-		return isConnected ? '' : isConnecting ? '' : '';
-	});
 
 	const showBattery = createComputed((get) => {
 		const batteryPercent = get(battery);
@@ -26,10 +21,17 @@ function Device(props: { device: Bt.Device }) {
 		return isConnected && batteryPercent !== -1;
 	});
 
+	const state = createComputed<RevealerItemState>((get) => {
+		const isConnected = get(connected);
+		const isConnecting = get(connecting);
+
+		return isConnected ? 'on' : isConnecting ? 'busy' : 'off';
+	});
+
 	return (
-		<button
-			hexpand
-			onClicked={() => {
+		<RevealerItem
+			state={state}
+			onClick={() => {
 				const isConnecting = connecting.get();
 				if (isConnecting) return;
 
@@ -55,29 +57,11 @@ function Device(props: { device: Bt.Device }) {
 					});
 				}
 			}}
-		>
-			<box spacing={6} hexpand>
-				<label
-					widthRequest={14}
-					css="font-size: 12px;"
-					cssClasses={connecting.as((connecting) => [
-						'icon fas',
-						connecting ? 'spin' : '',
-					])}
-					label={icon}
-				/>
-
+			label={
 				<box hexpand>
-					<label
-						$type="start"
-						label={alias}
-						halign={Gtk.Align.START}
-						hexpand
-					/>
+					<label label={alias} halign={Gtk.Align.START} hexpand />
 
 					<label
-						$type="end"
-						widthRequest={-1}
 						halign={Gtk.Align.END}
 						visible={showBattery}
 						label={battery.as((b) => {
@@ -85,8 +69,8 @@ function Device(props: { device: Bt.Device }) {
 						})}
 					/>
 				</box>
-			</box>
-		</button>
+			}
+		/>
 	);
 }
 

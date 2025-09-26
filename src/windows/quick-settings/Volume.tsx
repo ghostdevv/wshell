@@ -5,6 +5,7 @@ import { createBinding, createState } from 'gnim';
 import { Gtk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
 import { For } from 'ags';
+import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 
 export function Volume() {
 	const wp = Wp.get_default();
@@ -41,26 +42,16 @@ export function Volume() {
 			<Revealer open={open}>
 				<For each={speakers}>
 					{(speaker) => (
-						<button onClicked={() => speaker.set_is_default(true)}>
-							<box spacing={6}>
-								<label
-									widthRequest={14}
-									css="font-size: 12px;"
-									class="icon fas"
-									label={defaultSpeakerId.as((id) =>
-										speaker.id === id ? '' : '',
-									)}
-								/>
-
-								<label
-									halign={Gtk.Align.START}
-									label={textOverflow(
-										speaker.name || speaker.description,
-										32,
-									)}
-								/>
-							</box>
-						</button>
+						<RevealerItem
+							onClick={() => speaker.set_is_default(true)}
+							state={defaultSpeakerId.as((id) =>
+								speaker.id === id ? 'on' : 'off',
+							)}
+							label={textOverflow(
+								speaker.name || speaker.description,
+								32,
+							)}
+						/>
 					)}
 				</For>
 			</Revealer>

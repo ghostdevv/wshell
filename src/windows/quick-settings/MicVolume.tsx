@@ -5,6 +5,7 @@ import { textOverflow } from '$lib/common';
 import { Gtk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
 import { For } from 'ags';
+import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 
 export function MicVolume() {
 	const wp = Wp.get_default();
@@ -39,26 +40,16 @@ export function MicVolume() {
 			<Revealer open={open}>
 				<For each={mics}>
 					{(mic) => (
-						<button onClicked={() => mic.set_is_default(true)}>
-							<box spacing={6}>
-								<label
-									widthRequest={14}
-									css="font-size: 12px;"
-									class="icon fas"
-									label={defaultMicId.as((id) =>
-										mic.id === id ? '' : '',
-									)}
-								/>
-
-								<label
-									halign={Gtk.Align.START}
-									label={textOverflow(
-										mic.name || mic.description,
-										32,
-									)}
-								/>
-							</box>
-						</button>
+						<RevealerItem
+							onClick={() => mic.set_is_default(true)}
+							state={defaultMicId.as((id) =>
+								mic.id === id ? 'on' : 'off',
+							)}
+							label={textOverflow(
+								mic.name || mic.description,
+								32,
+							)}
+						/>
 					)}
 				</For>
 			</Revealer>
