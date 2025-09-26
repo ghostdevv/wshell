@@ -4,14 +4,10 @@ import { handleDropdownWindow } from '$lib/dropdown/utils';
 import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
 import Network from 'gi://AstalNetwork';
-import { execAsync } from 'ags/process';
 import Battery from 'gi://AstalBattery';
+import { notify } from '$lib/notify';
 import type { Gdk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
-
-async function notify(message: string, type?: 'low' | 'normal' | 'critical') {
-	await execAsync(['notify-send', type ? `--urgency=${type}` : '', message]);
-}
 
 async function checkBatteryPercent(percent: number) {
 	switch (percent) {
