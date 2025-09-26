@@ -1,5 +1,5 @@
+import { workspacesMap } from '$lib/state/workspaces';
 import { createComputed, type Accessor } from 'gnim';
-import { workspacesMap } from '$lib/workspaces';
 import { execAsync } from 'ags/process';
 import { For } from 'ags';
 
