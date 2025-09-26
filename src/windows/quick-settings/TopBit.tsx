@@ -1,6 +1,7 @@
 import { formatDistanceToNow } from 'date-fns';
-import { exec } from 'ags/process';
+import { exec, execAsync } from 'ags/process';
 import { Gtk } from 'ags/gtk4';
+import { notify } from '$lib/notify';
 
 export function TopBit() {
 	const uptimeSince = new Date(exec(['uptime', '--since']));
@@ -27,7 +28,22 @@ export function TopBit() {
 			</box>
 
 			<box $type="end" spacing={6}>
-				<button valign={Gtk.Align.CENTER} class="icon outline">
+				<button
+					valign={Gtk.Align.CENTER}
+					class="icon outline"
+					onClicked={async () => {
+						try {
+							await execAsync('hyprlock --a');
+						} catch (e) {
+							console.error('failed to lock screen', e);
+							notify({
+								title: 'Failed to lock screen',
+								message:
+									e instanceof Error ? e.message : `${e}`,
+							});
+						}
+					}}
+				>
 					<label class="icon" label="" />
 				</button>
 
