@@ -1,4 +1,4 @@
-import { DropdownWindow } from '$lib/dropdown/DropdownWindow';
+import { DropdownWindow } from '$lib/dropdown-window/DropdownWindow';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import { format } from 'date-fns';

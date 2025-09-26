@@ -1,5 +1,5 @@
+import { handleDropdownWindow } from '$lib/dropdown-window/utils';
 import CenterDropdown from '../center-dropdown/CenterDropdown';
-import { handleDropdownWindow } from '$lib/dropdown/utils';
 import { type Gdk, Gtk } from 'ags/gtk4';
 import { createPoll } from 'ags/time';
 import { format } from 'date-fns';

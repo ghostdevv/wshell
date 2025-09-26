@@ -1,6 +1,6 @@
+import { handleDropdownWindow } from '$lib/dropdown-window/utils';
 import QuickSettings from '../quick-settings/QuickSettings';
 import { fmtPercent, getIconByPercent } from '$lib/common';
-import { handleDropdownWindow } from '$lib/dropdown/utils';
 import { createBinding, createComputed } from 'gnim';
 import Bluetooth from 'gi://AstalBluetooth';
 import Network from 'gi://AstalNetwork';
