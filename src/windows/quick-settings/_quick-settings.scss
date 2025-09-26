@@ -1,4 +1,5 @@
 @use '../../_theme.scss';
+@use 'sass:color';
 
 window.quick-settings {
 	background: transparent;
@@ -37,6 +38,45 @@ window.quick-settings {
 
 		&:hover {
 			background-color: theme.$background-tertiary;
+		}
+	}
+
+	.button-dropdown {
+		--bg-colour: #{theme.$background-tertiary};
+		--bg-colour-hover: #{color.scale(
+				theme.$background-tertiary,
+				$lightness: 10%
+			)};
+
+		&.active {
+			--bg-colour: #{theme.$primary};
+			--bg-colour-hover: #{theme.$primary-hover};
+		}
+
+		button {
+			border-radius: 0px;
+			margin: 0px;
+			border: 0px;
+
+			&:first-child {
+				border-top-left-radius: 12px;
+				border-bottom-left-radius: 12px;
+				padding: 4px 8px;
+				padding-left: 12px;
+				background-color: var(--bg-colour);
+			}
+
+			&:last-child {
+				border-top-right-radius: 12px;
+				border-bottom-right-radius: 12px;
+				padding: 4px;
+				background-color: var(--bg-colour);
+			}
+
+			&:hover,
+			&:focus {
+				background-color: var(--bg-colour-hover);
+			}
 		}
 	}
 

@@ -2,6 +2,7 @@ import { DropdownWindow } from '$lib/dropdown/DropdownWindow';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Brightness } from './Brightness';
 import { MicVolume } from './MicVolume';
+import { Bluetooth } from './Bluetooth';
 import { TopBit } from './TopBit';
 import { Volume } from './Volume';
 
@@ -27,6 +28,7 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 					<Volume />
 					<MicVolume />
 					<Brightness />
+					<Bluetooth />
 				</box>
 			</box>
 		</DropdownWindow>

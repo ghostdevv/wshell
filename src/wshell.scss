@@ -12,6 +12,10 @@
 	&.fas {
 		font-weight: 900;
 	}
+
+	&.spin {
+		animation: spin 2s linear infinite;
+	}
 }
 
 separator {
