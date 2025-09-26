@@ -30,7 +30,7 @@ export const cpu = createPoll('?%', POLL_INTERVAL, [
 ]).as((output) => {
 	const lines = output.trim().split('\n');
 
-	let total = -1;
+	let total: number | null = null;
 	const cores: number[] = [];
 
 	for (const line of lines) {

@@ -23,7 +23,7 @@ export function Vitals() {
 					<label class="icon" label="" />
 					<label
 						class="value"
-						label={cpu.as((cpu) => `${cpu.total}%`)}
+						label={cpu.as((cpu) => `${cpu.total ?? '?'}%`)}
 					/>
 				</box>
 
@@ -36,7 +36,7 @@ export function Vitals() {
 					<label class="icon" label="" />
 					<label
 						class="value"
-						label={memory.as((mem) => `${mem.percent}%`)}
+						label={memory.as((mem) => `${mem.percent ?? '?'}%`)}
 					/>
 				</box>
 			</box>
