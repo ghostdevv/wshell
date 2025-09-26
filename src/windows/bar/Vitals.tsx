@@ -1,10 +1,10 @@
 import { createPoll } from 'ags/time';
 import { exec } from 'ags/process';
 
-const POLL_INTERVAL = 10000;
+const POLL_INTERVAL = 5000;
 
 export function Vitals() {
-	const memory = createPoll('...', POLL_INTERVAL, ['free', '--mega']).as(
+	const memory = createPoll('?%', POLL_INTERVAL, ['free', '--mega']).as(
 		(output) => {
 			const parts = output
 				.split('\n')
@@ -23,44 +23,54 @@ export function Vitals() {
 		},
 	);
 
-	const cpu = createPoll('...', POLL_INTERVAL, ['cat', '/proc/stat']).as(
-		(output) => {
-			// cpu user nice system idle iowait irq softirq steal guest guest_nice
-			const lines = output.split('\n');
+	const cpu = createPoll('?%', POLL_INTERVAL, [
+		'mpstat',
+		'-P',
+		'ALL',
+		'1',
+		'1',
+	]).as((output) => {
+		const lines = output.trim().split('\n');
 
-			function calculatePercent(values: number[]) {
-				const idle = values[3] + values[4]; // idle + iowait
-				const total = values.reduce((sum, val) => sum + val, 0);
-				const used = total - idle;
-				return Math.round((used / total) * 100);
+		let total = -1;
+		const cores: number[] = [];
+
+		for (const line of lines) {
+			// Skip header lines, average lines, and empty lines
+			if (
+				line.includes('CPU') ||
+				line.includes('Average:') ||
+				line.trim() === ''
+			)
+				continue;
+
+			const values = line.trim().split(/\s+/);
+			if (values.length < 12) continue;
+
+			const cpu = values[1]; // CPU column (all, 0, 1, 2, etc.)
+			// Calculate active CPU usage excluding iowait
+			// %usr + %nice + %sys + %irq + %soft + %steal + %guest + %gnice
+			const usr = Number.parseFloat(values[2]);
+			const nice = Number.parseFloat(values[3]);
+			const sys = Number.parseFloat(values[4]);
+			const irq = Number.parseFloat(values[6]);
+			const soft = Number.parseFloat(values[7]);
+			const steal = Number.parseFloat(values[8]);
+			const guest = Number.parseFloat(values[9]);
+			const gnice = Number.parseFloat(values[10]);
+			const usage = Math.round(
+				usr + nice + sys + irq + soft + steal + guest + gnice,
+			);
+
+			if (cpu === 'all') {
+				total = usage;
+			} else if (!Number.isNaN(Number.parseInt(cpu, 10))) {
+				cores.push(usage);
 			}
+		}
 
-			// Total CPU (first line)
-			const totalLine = lines[0];
-			if (!totalLine.startsWith('cpu ')) return { total: -1, cores: [] };
-
-			const totalValues = totalLine
-				.split(/\s+/)
-				.slice(1)
-				.map((v) => Number.parseInt(v, 10));
-			const total = calculatePercent(totalValues);
-
-			// Individual cores (cpu0, cpu1, cpu2, etc.)
-			const cores = [];
-			for (let i = 1; i < lines.length; i++) {
-				const line = lines[i];
-				if (!line.startsWith('cpu')) break;
-
-				const values = line
-					.split(/\s+/)
-					.slice(1)
-					.map((v) => Number.parseInt(v, 10));
-				cores.push(calculatePercent(values));
-			}
-
-			return { total, cores };
-		},
-	);
+		return { total, cores };
+	});
 
 	return (
 		<button
