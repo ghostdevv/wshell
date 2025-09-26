@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.2
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.1...v0.1.2)
+
+### 🩹 Fixes
+
+- Active workspace not shown on inactive monitors ([da06617](https://github.com/ghostdevv/wshell/commit/da06617))
+- Better cpu usage ([069c4a8](https://github.com/ghostdevv/wshell/commit/069c4a8))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.1
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.0...v0.1.1)
