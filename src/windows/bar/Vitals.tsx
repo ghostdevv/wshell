@@ -1,13 +1,16 @@
 import { cpu, memory } from '$lib/state/vitals';
-import { exec } from 'ags/process';
+import { execAsync } from 'ags/process';
 
 export function Vitals() {
 	return (
 		<button
 			class="group"
-			onClicked={() => {
+			onClicked={async () => {
 				try {
-					exec(['gtk-launch', 'io.missioncenter.MissionCenter']);
+					await execAsync([
+						'gtk-launch',
+						'io.missioncenter.MissionCenter',
+					]);
 				} catch (error) {
 					console.error('Failed to launch Mission Center:', error);
 				}

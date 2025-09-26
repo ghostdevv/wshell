@@ -1,6 +1,6 @@
 import { createComputed, type Accessor } from 'gnim';
 import { workspacesMap } from '$lib/workspaces';
-import { exec } from 'ags/process';
+import { execAsync } from 'ags/process';
 import { For } from 'ags';
 
 export function Workspaces(props: { output: Accessor<string | null> }) {
@@ -20,10 +20,10 @@ export function Workspaces(props: { output: Accessor<string | null> }) {
 				{(workspace) => (
 					<button
 						cssClasses={['icon', workspace.is_active ? 'fas' : '']}
-						onClicked={() => {
+						onClicked={async () => {
 							if (!workspace.is_active) {
 								try {
-									exec([
+									await execAsync([
 										'niri',
 										'msg',
 										'action',
