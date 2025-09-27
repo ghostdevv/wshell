@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.1.4
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.3...v0.1.4)
+
+### 🚀 Enhancements
+
+- Add bluetooth to quick settings ([a784333](https://github.com/ghostdevv/wshell/commit/a784333))
+- Power profiles ([55ab12a](https://github.com/ghostdevv/wshell/commit/55ab12a))
+
+### 🩹 Fixes
+
+- Update more places to use exec async ([c568b82](https://github.com/ghostdevv/wshell/commit/c568b82))
+- Hide bluetooth indicator when not on ([9e526ef](https://github.com/ghostdevv/wshell/commit/9e526ef))
+- Close dropdown window when their parents are closed ([a270fcb](https://github.com/ghostdevv/wshell/commit/a270fcb))
+
+### 💅 Refactors
+
+- Dropdown -> dropdown window ([ae81b32](https://github.com/ghostdevv/wshell/commit/ae81b32))
+- More workspaces state into state folder ([55c343a](https://github.com/ghostdevv/wshell/commit/55c343a))
+- Abstract quick settings revealer ([3b34604](https://github.com/ghostdevv/wshell/commit/3b34604))
+- Revealer item component ([2e5c5ba](https://github.com/ghostdevv/wshell/commit/2e5c5ba))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.3
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.2...v0.1.3)
