@@ -1,3 +1,7 @@
+import type GObject from 'gi://GObject?version=2.0';
+
+export type Child = GObject.Object | GObject.Object[];
+
 export function getIconByPercent(percent: number, icons: string[]): string {
 	// Clamp the percentage between 0 and 1
 	const clampedPercent = Math.max(0, Math.min(1, percent));

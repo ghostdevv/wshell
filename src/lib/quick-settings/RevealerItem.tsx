@@ -1,3 +1,4 @@
+import type { Child } from '$lib/common';
 import { Accessor } from 'gnim';
 import { Gtk } from 'ags/gtk4';
 
@@ -6,7 +7,7 @@ export type RevealerItemState = 'on' | 'off' | 'busy';
 interface Props {
 	onClick: () => void;
 	state: Accessor<RevealerItemState>;
-	label: string | Accessor<string> | JSX.Element;
+	label: string | Accessor<string> | Child;
 }
 
 function isStringish(value: unknown): value is string | Accessor<string> {

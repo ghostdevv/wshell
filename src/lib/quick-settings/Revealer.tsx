@@ -1,8 +1,9 @@
+import type { Child } from '$lib/common';
 import type { Accessor } from 'gnim';
 import { Gtk } from 'ags/gtk4';
 
 interface Props {
-	children: JSX.Element;
+	children: Child;
 	open: Accessor<boolean>;
 }
 
