@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.5
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.4...v0.1.5)
+
+### 🚀 Enhancements
+
+- Display volume mute icon when volume is 0 ([90823d1](https://github.com/ghostdevv/wshell/commit/90823d1))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.4
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.3...v0.1.4)
