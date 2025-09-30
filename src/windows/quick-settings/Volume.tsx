@@ -23,7 +23,7 @@ export function Volume() {
 					value={volume}
 					onChangeValue={(value) => defaultSpeaker.set_volume(value)}
 					icon={volume.as((v) =>
-						getIconByPercent(v, ['', '', '']),
+						getIconByPercent(v, ['', '', ''], ''),
 					)}
 				/>
 

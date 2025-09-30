@@ -102,7 +102,7 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 					<label
 						class="icon"
 						label={speakerVolume.as((vol) =>
-							getIconByPercent(vol, ['', '', '']),
+							getIconByPercent(vol, ['', '', ''], ''),
 						)}
 					/>
 				</box>
