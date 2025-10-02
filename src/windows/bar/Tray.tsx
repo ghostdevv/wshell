@@ -7,11 +7,7 @@ export function Tray() {
 	const items = createBinding(tray, 'items');
 
 	return (
-		<box
-			class="group"
-			spacing={8}
-			visible={items.as((items) => items.length > 0)}
-		>
+		<box class="group" visible={items.as((items) => items.length > 0)}>
 			<For each={items}>
 				{(item) => (
 					<button
