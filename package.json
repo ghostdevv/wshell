@@ -11,15 +11,15 @@
 		"release": "changelogen --release"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.3",
+		"@biomejs/biome": "2.2.4",
 		"ags": "link:/usr/share/ags/js",
 		"changelogen": "^0.6.2",
 		"date-fns": "^4.1.0",
-		"gnim": "^1.6.5",
+		"gnim": "^1.8.0",
 		"klona": "^2.0.6",
 		"onchange": "^7.1.0",
 		"prettier": "^3.6.2",
-		"sass": "^1.92.0"
+		"sass": "^1.93.2"
 	},
 	"packageManager": "pnpm@10.15.1",
 	"volta": {
