@@ -2,7 +2,7 @@ import type { Child } from '$lib/common';
 import { Accessor } from 'gnim';
 import { Gtk } from 'ags/gtk4';
 
-export type RevealerItemState = 'on' | 'off' | 'busy';
+export type RevealerItemState = 'on' | 'off' | 'busy' | 'new';
 
 interface Props {
 	onClick: () => void;
@@ -22,7 +22,13 @@ export function RevealerItem(props: Props) {
 					widthRequest={14}
 					css="font-size: 12px;"
 					label={props.state.as((state) =>
-						state === 'on' ? '' : state === 'busy' ? '' : '',
+						state === 'on'
+							? ''
+							: state === 'busy'
+								? ''
+								: state === 'new'
+									? '+'
+									: '',
 					)}
 					class={props.state.as(
 						(state) => `icon fas ${state === 'busy' ? 'spin' : ''}`,

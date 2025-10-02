@@ -13,6 +13,7 @@ function Device(props: { device: Bt.Device }) {
 	const battery = createBinding(props.device, 'batteryPercentage');
 	const connected = createBinding(props.device, 'connected');
 	const connecting = createBinding(props.device, 'connecting');
+	const trusted = createBinding(props.device, 'trusted');
 
 	const showBattery = createComputed((get) => {
 		const batteryPercent = get(battery);
@@ -24,8 +25,15 @@ function Device(props: { device: Bt.Device }) {
 	const state = createComputed<RevealerItemState>((get) => {
 		const isConnected = get(connected);
 		const isConnecting = get(connecting);
+		const isTrusted = get(trusted);
 
-		return isConnected ? 'on' : isConnecting ? 'busy' : 'off';
+		return isConnected
+			? 'on'
+			: isConnecting
+				? 'busy'
+				: !isTrusted
+					? 'new'
+					: 'off';
 	});
 
 	return (
@@ -48,6 +56,8 @@ function Device(props: { device: Bt.Device }) {
 					});
 				} else {
 					props.device.connect_device(async (device) => {
+						props.device.set_trusted(true);
+
 						if (!device?.get_connected()) {
 							await notify({
 								title: device?.get_alias(),
@@ -85,12 +95,18 @@ export function Bluetooth() {
 			const connectedDiff = +b.connected - +a.connected;
 			if (connectedDiff !== 0) return connectedDiff;
 
-			// If connection status is the same, sort alphabetically by alias
+			// If connection status is the same, sort by paired status (paired devices next)
+			const pairedDiff = +b.paired - +a.paired;
+			if (pairedDiff !== 0) return pairedDiff;
+
+			// If both connection and paired status are the same, sort alphabetically by alias
 			return a.alias.localeCompare(b.alias);
 		});
 	});
 
 	const [open, setOpen] = createState(false);
+
+	const scanning = createBinding(bluetooth.adapter, 'discovering');
 
 	return (
 		<box orientation={Gtk.Orientation.VERTICAL} hexpand>
@@ -126,9 +142,31 @@ export function Bluetooth() {
 			</box>
 
 			<Revealer open={open}>
-				<For each={devices}>
-					{(device) => <Device device={device} />}
-				</For>
+				<box orientation={Gtk.Orientation.VERTICAL}>
+					<For each={devices}>
+						{(device) => <Device device={device} />}
+					</For>
+				</box>
+
+				<Gtk.Separator css="margin: 4px 0px;" />
+
+				<button
+					onClicked={() => {
+						if (scanning.get()) {
+							bluetooth.adapter.stop_discovery();
+						} else {
+							bluetooth.adapter.start_discovery();
+						}
+					}}
+				>
+					<label
+						label={scanning.as((scanning) =>
+							scanning ? 'Scanning...' : 'Scan',
+						)}
+						css="font-size: 12px;"
+						halign={Gtk.Align.START}
+					/>
+				</button>
 			</Revealer>
 		</box>
 	);
