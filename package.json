@@ -1,6 +1,6 @@
 {
 	"name": "wshell",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"scripts": {
 		"start": "ags run --gtk 4 src/wshell.ts",
 		"bundle": "ags bundle --gtk 4 src/wshell.ts wshell",

@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.6
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.4...v0.1.6)
+
+### 🚀 Enhancements
+
+- Display volume mute icon when volume is 0 ([90823d1](https://github.com/ghostdevv/wshell/commit/90823d1))
+- Able to scan for bluetooth devices ([84f7767](https://github.com/ghostdevv/wshell/commit/84f7767))
+
+### 🩹 Fixes
+
+- Lower tray icon spacing ([6fa057c](https://github.com/ghostdevv/wshell/commit/6fa057c))
+
+### 🏡 Chore
+
+- **release:** V0.1.5 ([5bdb9ea](https://github.com/ghostdevv/wshell/commit/5bdb9ea))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.5
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.4...v0.1.5)
