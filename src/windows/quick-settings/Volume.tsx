@@ -1,11 +1,11 @@
+import { createBinding, createState, createComputed } from 'gnim';
+import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 import { getIconByPercent, textOverflow } from '$lib/common';
 import { Revealer } from '$lib/quick-settings/Revealer';
 import { IconSlider } from '$lib/slider/IconSlider';
-import { createBinding, createState } from 'gnim';
 import { Gtk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
 import { For } from 'ags';
-import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 
 export function Volume() {
 	const wp = Wp.get_default();
@@ -13,18 +13,29 @@ export function Volume() {
 	const defaultSpeakerId = createBinding(defaultSpeaker, 'id');
 	const volume = createBinding(defaultSpeaker, 'volume');
 	const speakers = createBinding(wp.audio, 'speakers');
+	const muted = createBinding(defaultSpeaker, 'mute');
 
 	const [open, setOpen] = createState(false);
+
+	const icon = createComputed((get) => {
+		const currentVolume = get(volume);
+		const isMuted = get(muted);
+
+		return isMuted
+			? ''
+			: getIconByPercent(currentVolume, ['', '', ''], '');
+	});
 
 	return (
 		<box orientation={Gtk.Orientation.VERTICAL}>
 			<box spacing={6}>
 				<IconSlider
+					icon={icon}
 					value={volume}
-					onChangeValue={(value) => defaultSpeaker.set_volume(value)}
-					icon={volume.as((v) =>
-						getIconByPercent(v, ['', '', ''], ''),
-					)}
+					onChangeValue={(value) => {
+						defaultSpeaker.set_volume(value);
+						defaultSpeaker.set_mute(value === 0);
+					}}
 				/>
 
 				<button class="icon" onClicked={() => setOpen(!open.get())}>
