@@ -33,7 +33,7 @@ export function TopBit() {
 					class="icon outline"
 					onClicked={async () => {
 						try {
-							await execAsync('hyprlock --a');
+							await execAsync('hyprlock');
 						} catch (e) {
 							console.error('failed to lock screen', e);
 							notify({
