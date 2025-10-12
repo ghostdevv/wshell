@@ -6,6 +6,7 @@ import { MicVolume } from './MicVolume';
 import { Bluetooth } from './Bluetooth';
 import { TopBit } from './TopBit';
 import { Volume } from './Volume';
+import { Keymap } from './Keymap';
 
 export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 	const { TOP, RIGHT } = Astal.WindowAnchor;
@@ -31,6 +32,7 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 					<Brightness />
 					<Bluetooth />
 					<PowerProfiles />
+					<Keymap />
 				</box>
 			</box>
 		</DropdownWindow>
