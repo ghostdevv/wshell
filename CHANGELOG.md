@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.7
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.6...v0.1.7)
+
+### 🩹 Fixes
+
+- Better volume muted handling in quick settings ([36c3b03](https://github.com/ghostdevv/wshell/commit/36c3b03))
+- Faster time handling and be responsive to timezone change ([ee3e340](https://github.com/ghostdevv/wshell/commit/ee3e340))
+- Lock button ([261e95d](https://github.com/ghostdevv/wshell/commit/261e95d))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.6
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.4...v0.1.6)
