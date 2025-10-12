@@ -3,6 +3,7 @@ import { createBinding, createState, createComputed } from 'gnim';
 import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 import { Revealer } from '$lib/quick-settings/Revealer';
 import { getIconByPercent } from '$lib/common';
+import Gio from 'gi://Gio?version=2.0';
 import { notify } from '$lib/notify';
 import Bt from 'gi://AstalBluetooth';
 import { Gtk } from 'ags/gtk4';
@@ -68,7 +69,53 @@ function Device(props: { device: Bt.Device }) {
 				}
 			}}
 			label={
-				<box hexpand>
+				<box
+					hexpand
+					$={(self) => {
+						function attachMenuModel(
+							popover: Gtk.PopoverMenu,
+							trusted: boolean,
+						) {
+							const menuModel = new Gio.Menu();
+							const trust = new Gio.MenuItem();
+
+							trust.set_label(
+								`${trusted ? 'Forget' : 'Remember'} device`,
+							);
+
+							trust.set_action_and_target_value(
+								'menu.trust',
+								null,
+							);
+
+							menuModel.append_item(trust);
+							popover.set_menu_model(menuModel);
+						}
+
+						const trustAction = new Gio.SimpleAction({
+							name: 'trust',
+						});
+
+						const actions = new Gio.SimpleActionGroup();
+						actions.add_action(trustAction);
+						self.insert_action_group('menu', actions);
+
+						const popover = new Gtk.PopoverMenu();
+						attachMenuModel(popover, props.device.get_trusted());
+						popover.set_parent(self);
+
+						trustAction.connect('activate', () => {
+							const newState = !props.device.get_trusted();
+							props.device.set_trusted(newState);
+							attachMenuModel(popover, newState);
+						});
+
+						const gesture = new Gtk.GestureClick();
+						gesture.set_button(3);
+						gesture.connect('pressed', () => popover.popup());
+						self.add_controller(gesture);
+					}}
+				>
 					<label label={alias} halign={Gtk.Align.START} hexpand />
 
 					<label
