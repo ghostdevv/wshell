@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.8
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.7...v0.1.8)
+
+### 🚀 Enhancements
+
+- Bluetooth forget/remember device ([2a0cd54](https://github.com/ghostdevv/wshell/commit/2a0cd54))
+- Add simple keymap button ([0ac4942](https://github.com/ghostdevv/wshell/commit/0ac4942))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.7
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.6...v0.1.7)
