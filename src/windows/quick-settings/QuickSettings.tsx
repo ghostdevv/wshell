@@ -4,6 +4,7 @@ import { PowerProfiles } from './PowerProfiles';
 import { Brightness } from './Brightness';
 import { MicVolume } from './MicVolume';
 import { Bluetooth } from './Bluetooth';
+import { Network } from './Network';
 import { TopBit } from './TopBit';
 import { Volume } from './Volume';
 import { Keymap } from './Keymap';
@@ -30,6 +31,7 @@ export default function QuickSettings(props: { monitor: Gdk.Monitor }) {
 					<Volume />
 					<MicVolume />
 					<Brightness />
+					<Network />
 					<Bluetooth />
 					<PowerProfiles />
 					<Keymap />
