@@ -9,7 +9,9 @@ import { notify } from '$lib/notify';
 import type { Gdk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
 
-async function checkBatteryPercent(percent: number) {
+async function checkBatteryPercent(percent: number, charging: boolean) {
+	if (charging) return;
+
 	switch (percent) {
 		case 0.1:
 			await notify({ message: 'Battery is low' });
@@ -44,8 +46,10 @@ export function Indicators(props: { monitor: Gdk.Monitor }) {
 			: getIconByPercent(get(batteryCharge), ['', '', '', '', '']),
 	);
 
-	checkBatteryPercent(batteryCharge.get());
-	batteryCharge.subscribe(() => checkBatteryPercent(batteryCharge.get()));
+	checkBatteryPercent(batteryCharge.get(), batteryCharging.get());
+	batteryCharge.subscribe(() =>
+		checkBatteryPercent(batteryCharge.get(), batteryCharging.get()),
+	);
 
 	const wp = Wp.get_default();
 	const speaker = wp.audio.defaultSpeaker;
