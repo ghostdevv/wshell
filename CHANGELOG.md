@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.10
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.9...v0.1.10)
+
+### 🩹 Fixes
+
+- Don't warn about battery level if charging ([16064b4](https://github.com/ghostdevv/wshell/commit/16064b4))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.9
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.8...v0.1.9)
