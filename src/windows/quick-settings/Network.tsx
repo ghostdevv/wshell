@@ -198,11 +198,17 @@ function WiFi() {
 			</box>
 
 			<Revealer open={open}>
-				<box orientation={Gtk.Orientation.VERTICAL}>
-					<For each={aps}>
-						{(ap) => <AP ap={ap} activeAp={activeAp} />}
-					</For>
-				</box>
+				<scrolledwindow
+					propagateNaturalHeight
+					maxContentHeight={200}
+					hscrollbarPolicy={Gtk.PolicyType.NEVER}
+				>
+					<box orientation={Gtk.Orientation.VERTICAL}>
+						<For each={aps}>
+							{(ap) => <AP ap={ap} activeAp={activeAp} />}
+						</For>
+					</box>
+				</scrolledwindow>
 
 				<Gtk.Separator css="margin: 4px 0px;" />
 
