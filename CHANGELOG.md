@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.11
+
+[compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.10...v0.1.11)
+
+### 🚀 Enhancements
+
+- Add scroll to wifi dropdown ([50a5392](https://github.com/ghostdevv/wshell/commit/50a5392))
+
+### ❤️ Contributors
+
+- Willow (GHOST) <git@willow.sh>
+
 ## v0.1.10
 
 [compare changes](https://github.com/ghostdevv/wshell/compare/v0.1.9...v0.1.10)
