@@ -1,17 +1,13 @@
+import { extensions } from 'src/extensions/extensions';
+import { sortExtensions } from '$lib/extensions/bar';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
-import { Indicators } from './Indicators';
-import { Workspaces } from './Workspaces';
-import { createBinding } from 'ags';
-import { Privacy } from './Privacy';
-import { Vitals } from './Vitals';
-import { Clock } from './Clock';
+import { Render } from '$lib/extensions/render';
 import app from 'ags/gtk4/app';
-import { Tray } from './Tray';
+
+const barExtensions = sortExtensions(extensions);
 
 export default function Bar(props: { monitor: Gdk.Monitor }) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
-	const output = createBinding(props.monitor, 'connector');
-
 	return (
 		<window
 			visible
@@ -24,18 +20,30 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 		>
 			<centerbox cssName="centerbox">
 				<box $type="start" halign={Gtk.Align.END} spacing={8}>
-					<Workspaces output={output} />
-					<Tray />
+					{barExtensions.left.map((extension) => (
+						<Render
+							this={extension.render}
+							monitor={props.monitor}
+						/>
+					))}
 				</box>
 
 				<box $type="center" halign={Gtk.Align.END}>
-					<Clock monitor={props.monitor} />
+					{barExtensions.center.map((extension) => (
+						<Render
+							this={extension.render}
+							monitor={props.monitor}
+						/>
+					))}
 				</box>
 
 				<box $type="end" halign={Gtk.Align.END} spacing={8}>
-					<Privacy />
-					<Vitals />
-					<Indicators monitor={props.monitor} />
+					{barExtensions.right.map((extension) => (
+						<Render
+							this={extension.render}
+							monitor={props.monitor}
+						/>
+					))}
 				</box>
 			</centerbox>
 		</window>
