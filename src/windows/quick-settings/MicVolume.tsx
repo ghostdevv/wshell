@@ -1,11 +1,11 @@
+import { createBinding, createState, createComputed } from 'gnim';
+import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 import { Revealer } from '$lib/quick-settings/Revealer';
 import { IconSlider } from '$lib/slider/IconSlider';
-import { createBinding, createState } from 'gnim';
 import { textOverflow } from '$lib/common';
 import { Gtk } from 'ags/gtk4';
 import Wp from 'gi://AstalWp';
 import { For } from 'ags';
-import { RevealerItem } from '$lib/quick-settings/RevealerItem';
 
 export function MicVolume() {
 	const wp = Wp.get_default();
@@ -13,16 +13,28 @@ export function MicVolume() {
 	const defaultMicId = createBinding(defaultMic, 'id');
 	const volume = createBinding(defaultMic, 'volume');
 	const mics = createBinding(wp.audio, 'microphones');
+	const muted = createBinding(defaultMic, 'mute');
 
 	const [open, setOpen] = createState(false);
+
+	const icon = createComputed((get) => {
+		const currentVolume = get(volume);
+		const isMuted = get(muted);
+		console.log({ isMuted });
+
+		return isMuted || currentVolume === 0 ? '' : '';
+	});
 
 	return (
 		<box orientation={Gtk.Orientation.VERTICAL}>
 			<box spacing={6}>
 				<IconSlider
 					value={volume}
-					onChangeValue={(value) => defaultMic.set_volume(value)}
-					icon={volume.as((v) => (v === 0 ? '' : ''))}
+					onChangeValue={(value) => {
+						defaultMic.set_volume(value);
+						defaultMic.set_mute(value === 0);
+					}}
+					icon={icon}
 				/>
 
 				<button class="icon" onClicked={() => setOpen(!open.get())}>
