@@ -1,13 +1,39 @@
-import { extensions } from 'src/extensions/extensions';
-import { sortExtensions } from '$lib/extensions/bar';
+import { components } from '$lib/extensions/extensions';
 import { Astal, Gtk, type Gdk } from 'ags/gtk4';
 import { Render } from '$lib/extensions/render';
+import { config } from '$lib/config/config';
 import app from 'ags/gtk4/app';
 
-const barExtensions = sortExtensions(extensions);
+async function getComponents(part: 'left' | 'center' | 'right') {
+	const promises = config.surfaces.bar[part]?.map(async (id) => {
+		const cmp = components.get(id);
+		if (!cmp) return null;
+
+		return {
+			id: cmp.id,
+			type: cmp.type,
+			...(await cmp.module()),
+		};
+	});
+
+	if (!promises) {
+		return null;
+	}
+
+	// prettier-ignore
+	return (await Promise.all(promises))
+		.filter((component) => component !== null);
+}
+
+const [left, center, right] = await Promise.all([
+	getComponents('left'),
+	getComponents('center'),
+	getComponents('right'),
+]);
 
 export default function Bar(props: { monitor: Gdk.Monitor }) {
 	const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
+
 	return (
 		<window
 			visible
@@ -20,7 +46,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 		>
 			<centerbox cssName="centerbox">
 				<box $type="start" halign={Gtk.Align.END} spacing={8}>
-					{barExtensions.left.map((extension) => (
+					{left?.map((extension) => (
 						<Render
 							this={extension.render}
 							monitor={props.monitor}
@@ -29,7 +55,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 				</box>
 
 				<box $type="center" halign={Gtk.Align.END}>
-					{barExtensions.center.map((extension) => (
+					{center?.map((extension) => (
 						<Render
 							this={extension.render}
 							monitor={props.monitor}
@@ -38,7 +64,7 @@ export default function Bar(props: { monitor: Gdk.Monitor }) {
 				</box>
 
 				<box $type="end" halign={Gtk.Align.END} spacing={8}>
-					{barExtensions.right.map((extension) => (
+					{right?.map((extension) => (
 						<Render
 							this={extension.render}
 							monitor={props.monitor}
